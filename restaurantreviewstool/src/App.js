@@ -14,9 +14,33 @@ class App extends React.Component {
     super();
     /* state should probably go here */
     this.state = {
-      route: ''
+      searchfield: '', 
+      searchresults: [], 
+      placeDetailsName: '', 
+      placeDetailsID: ''
     }
+    
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onSearchClick = this.onSearchClick.bind(this);
+    this.onSearchCardClick = this.onSearchCardClick.bind(this);
+
   }
+
+  onInputChange(event) {
+    this.setState({searchfield: event.target.value});
+  }
+
+  onSearchClick() {
+    fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${this.state.searchfield}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&type=restaurant`)
+      .then(response=> response.json())
+      .then(data => {this.setState({ searchresults: data.results})})
+      .then(results => {console.log(this.state.searchresults.length + " results returned from google (logged in state update)")});
+  }
+
+  onSearchCardClick(name, place_id){
+    this.setState({placeDetailsName: name, placeDetailsID: place_id});
+  }
+
   render(){
     return (
       <div className="App">
@@ -24,9 +48,24 @@ class App extends React.Component {
           <NavigationBar />  {/* for navigation through the app, always rendered */}
           <Logo />   {/* a logo for the RestrauntReviewsTool */}
           <Switch>
-            <Route path='/' exact component={SearchForm} />  {/* input field for search data */}
-            <Route path='/searchfilter' component={SearchFilter} />  {/* where the user sees multiple options */}
-            <ReviewComponent path='/reviewcomponent' component={ReviewComponent} /> {/* final restaurant details */}
+            <Route path='/' 
+              exact 
+              render={(props) => <SearchForm {...props} searchfield={this.state.searchfield} onInputChange={this.onInputChange} onSearchClick={this.onSearchClick} /> } 
+            /> 
+            {/* Changing to render so the component wont re-render everytime key is pressed */}
+
+            <Route 
+              path='/searchfilter' 
+              render={(props) => <SearchFilter {...props}
+                                  searchresults={this.state.searchresults} 
+                                  onSearchCardClick={this.onSearchCardClick}/> } 
+            />  
+
+            <Route 
+              path='/reviewcomponent' 
+              render={(props) => <ReviewComponent {...props} placeDetailsID={this.state.placeDetailsID}/>}
+              /> 
+
           </Switch>
         </BrowserRouter>
 

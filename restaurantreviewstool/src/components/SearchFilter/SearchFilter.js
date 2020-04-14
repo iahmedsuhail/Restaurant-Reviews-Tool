@@ -1,22 +1,41 @@
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
 import {Link} from 'react-router-dom';
 
-const SearchFilter = () => {
+class SearchFilter extends React.Component{
+
+    render(){
+        return(
+            <div>
+                <h1>SEARCH RESULTS</h1>
+                {this.props.searchresults.map((re, i) => {
+                    return(<SearchCard 
+                        key={i} 
+                        name={this.props.searchresults[i].name} 
+                        address={this.props.searchresults[i].formatted_address} 
+                        rating={this.props.searchresults[i].rating}
+                        place_id={this.props.searchresults[i].place_id} 
+                        onSearchCardClick = {this.props.onSearchCardClick}  
+                    />);})}
+            </div>
+        );
+    }
+}
+
+// The component below is populated from the results from the map and displayed above.
+const SearchCard = ({name, address, rating, place_id, onSearchCardClick}) => {
     return(
-        <div>
-            <Link to ='/reviewcomponent'>
-                <article className="center mw5 mw6-ns hidden ba mv4">
-                    <h1 className="f4 bg-near-black white mv0 pv2 ph3">Title of card</h1>
-                    <div className="pa3 bt">
-                        <p className="f6 f5-ns lh-copy measure mv0">
-                         - Data from a search result should be shown here <br />
-                         - should probably be able to search by cuisines, locations, restaurant names <br />
-                         - a click on a result should then gather result from diff apis and show result in the next page
-                        </p>
-                    </div>
-                </article>
-            </Link>
-        </div>
+        <Grid container direction="column" justify="center" alignItems="center">
+            <Link to='/reviewcomponent'>
+                <div className='tc bg-light-green br3 pa3 ma2 dib bw2 shadow-5' onClick={() => onSearchCardClick(name, place_id)}>
+                        <h2>Name: {name}</h2>
+                        <h5>Address: {address}</h5>
+                        <h5>Rating: {rating}</h5>
+                        <h5>Place ID: {place_id} </h5>
+                </div>
+            </Link>  
+        </Grid> 
     );
 }
+
 export default SearchFilter;
