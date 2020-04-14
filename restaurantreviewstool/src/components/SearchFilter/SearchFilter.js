@@ -38,4 +38,5 @@ const SearchCard = ({name, address, rating, place_id, onSearchCardClick}) => {
     );
 }
 
+
 export default SearchFilter;

@@ -8,26 +8,28 @@ import SearchFilter from './components/SearchFilter/SearchFilter.js';
 import ReviewComponent from './components/ReviewComponent/ReviewComponent.js';
 
 
-
 class App extends React.Component {
-  constructor(){
-    super();
-    /* state should probably go here */
+  constructor(props){
+    super(props);
     this.state = {
       searchfield: '', 
       searchresults: [], 
       placeDetailsName: '', 
       placeDetailsID: ''
+
     }
     
     this.onInputChange = this.onInputChange.bind(this);
     this.onSearchClick = this.onSearchClick.bind(this);
+
     this.onSearchCardClick = this.onSearchCardClick.bind(this);
+
 
   }
 
   onInputChange(event) {
     this.setState({searchfield: event.target.value});
+
   }
 
   onSearchClick() {
@@ -40,6 +42,7 @@ class App extends React.Component {
   onSearchCardClick(name, place_id){
     this.setState({placeDetailsName: name, placeDetailsID: place_id});
   }
+
 
   render(){
     return (
@@ -56,6 +59,7 @@ class App extends React.Component {
 
             <Route 
               path='/searchfilter' 
+
               render={(props) => <SearchFilter {...props}
                                   searchresults={this.state.searchresults} 
                                   onSearchCardClick={this.onSearchCardClick}/> } 
@@ -66,6 +70,7 @@ class App extends React.Component {
               render={(props) => <ReviewComponent {...props} placeDetailsID={this.state.placeDetailsID}/>}
               /> 
 
+
           </Switch>
         </BrowserRouter>
 
@@ -73,6 +78,5 @@ class App extends React.Component {
     );
   }
 }
-
 
 export default App;
