@@ -13,15 +13,23 @@ class App extends React.Component {
     super(props);
     this.state = {
       searchfield: '', 
-      searchresults: []
+      searchresults: [], 
+      placeDetailsName: '', 
+      placeDetailsID: ''
+
     }
     
     this.onInputChange = this.onInputChange.bind(this);
     this.onSearchClick = this.onSearchClick.bind(this);
+
+    this.onSearchCardClick = this.onSearchCardClick.bind(this);
+
+
   }
 
   onInputChange(event) {
     this.setState({searchfield: event.target.value});
+
   }
 
   onSearchClick() {
@@ -30,6 +38,11 @@ class App extends React.Component {
       .then(data => {this.setState({ searchresults: data.results})})
       .then(results => {console.log(this.state.searchresults.length + " results returned from google (logged in state update)")});
   }
+
+  onSearchCardClick(name, place_id){
+    this.setState({placeDetailsName: name, placeDetailsID: place_id});
+  }
+
 
   render(){
     return (
@@ -46,10 +59,18 @@ class App extends React.Component {
 
             <Route 
               path='/searchfilter' 
-              component={() => <SearchFilter searchresults={this.state.searchresults} /> } 
+
+              render={(props) => <SearchFilter {...props}
+                                  searchresults={this.state.searchresults} 
+                                  onSearchCardClick={this.onSearchCardClick}/> } 
             />  
 
-            <ReviewComponent path='/reviewcomponent' component={ReviewComponent} /> {/* final restaurant details */}
+            <Route 
+              path='/reviewcomponent' 
+              render={(props) => <ReviewComponent {...props} placeDetailsID={this.state.placeDetailsID}/>}
+              /> 
+
+
           </Switch>
         </BrowserRouter>
 
