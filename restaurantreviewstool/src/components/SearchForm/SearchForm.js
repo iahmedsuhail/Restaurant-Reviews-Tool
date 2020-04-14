@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const SearchForm = () => {
+const SearchForm = ({ onInputChange, onSearchClick, searchfield }) => {
     return(
         <div>
             <p className='f3'>
@@ -9,8 +9,8 @@ const SearchForm = () => {
             </p>
             <div className='center'>
                 <div className='form center pa4 br3 shadow-5'>
-                    <input className='f4 pa2 w-70 center' type='text'/>
-                    <button className='w-30 grow f4 ph3 pv2 dib white bg-light-purple'>
+                    <input className='f4 pa2 w-70 center' type='text' value={searchfield} onChange={onInputChange}/>
+                    <button className='w-30 grow f4 ph3 pv2 dib white bg-light-purple' onClick={onSearchClick}>
                     <Link to ='/searchfilter'>
                     Search   
                     </Link>    
