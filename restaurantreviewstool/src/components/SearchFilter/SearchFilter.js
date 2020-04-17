@@ -6,7 +6,7 @@ class SearchFilter extends React.Component{
 
     render(){
         return(
-            <div>
+            <div className="App">
                 <h1>SEARCH RESULTS</h1>
                 {this.props.searchresults.map((re, i) => {
                     return(<SearchCard 
