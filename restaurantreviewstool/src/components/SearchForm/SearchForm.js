@@ -16,7 +16,6 @@ const SearchForm = ({ onInputChange, onSearchClick, searchfield }) => {
                             Search     
                         </button>
                     </Link>
-                    
                 </div>
             </div>
         </div>
