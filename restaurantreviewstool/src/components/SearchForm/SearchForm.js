@@ -1,20 +1,21 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import './SearchForm.css';
 
 const SearchForm = ({ onInputChange, onSearchClick, searchfield }) => {
     return(
         <div>
-            <p className='f3'>
-                {'Search here for restaurants, maybe make an api fetch here and populate data in the SearchFilter component'}
+            <p className=' sunflower-medium f-headline lh-solid f2'>
+                Welcome to Restaurant Reviews Tool! Search here for restaurants...
             </p>
             <div className='center'>
-                <div className='form center pa4 br3 shadow-5'>
-                    <input className='f4 pa2 w-70 center' type='text' value={searchfield} onChange={onInputChange}/>
-                    <button className='w-30 grow f4 ph3 pv2 dib white bg-light-purple' onClick={onSearchClick}>
-                    <Link to ='/searchfilter'>
-                    Search   
-                    </Link>    
-                    </button>
+                <div className='form measure center pa4 br3 shadow-5'>
+                    <input className='f4 pa2 center w-100' type='text' value={searchfield} onChange={onInputChange}/>
+                    <Link className="no-decoration bg-light-purple" to ='/searchfilter'>
+                        <button className='grow f4 ph3 pv2 dib white bg-light-purple' onClick={onSearchClick}>
+                            Search     
+                        </button>
+                    </Link>
                     
                 </div>
             </div>

@@ -1,15 +1,39 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  font-family: "Courier New", Courier, monospace;
+  background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+button {
+  cursor: pointer;
 }
 
+@font-face {
+  font-family: 'Sunflower Medium';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Sunflower Medium'), url('Sunflower-Medium.woff') format('woff');
+}
 
+.sunflower-medium{
+  font-family: 'Sunflower Medium';
+  color:#dfebf5;
+}
+
+/* To remove the underlines from react-router */
+.no-decoration{
+  text-decoration: none;
+}
+
+@font-face {
+  font-family: 'Sunflower Light';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Sunflower Light'), url('Sunflower-Light.woff') format('woff');
+}
+
+.sunflower-light{
+  font-family: 'Sunflower Light';
+  color:#dfebf5;
+}
