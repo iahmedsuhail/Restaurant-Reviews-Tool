@@ -6,6 +6,19 @@ import Logo from './components/Logo/Logo.js';
 import SearchForm from './components/SearchForm/SearchForm.js';
 import SearchFilter from './components/SearchFilter/SearchFilter.js';
 import ReviewComponent from './components/ReviewComponent/ReviewComponent.js';
+import Particles from 'react-particles-js';
+
+const particlesOptions = {
+  particles: {
+    number: {
+      value: 120,
+      density: {
+        enable: true,
+        value_area: 800
+      }
+    }
+  }
+}
 
 
 class App extends React.Component {
@@ -46,7 +59,11 @@ class App extends React.Component {
 
   render(){
     return (
+      // Particles.js library for styling the application
       <div className="App">
+        <Particles className='particles'
+          params={particlesOptions}
+        /> 
         <BrowserRouter> {/* using react-router-dom for routing */}
           <NavigationBar />  {/* for navigation through the app, always rendered */}
           <Logo />   {/* a logo for the RestrauntReviewsTool */}

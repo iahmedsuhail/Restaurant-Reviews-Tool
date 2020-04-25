@@ -1,4 +1,6 @@
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import './ReviewComponent.css';
 
 class ReviewComponent extends React.Component {
     constructor(props){
@@ -54,11 +56,12 @@ class ReviewComponent extends React.Component {
     render(){
         return(
             <div className="App">
-                <h1> GOOGLE PLACES REVIEW</h1>
-                Name: {this.state.gpName} <br />
-                Phone: {this.state.gpPhone} <br />
-                Address: {this.state.gpAddress} <br />
-                Rating: {this.state.gpRating} <br />
+                <GoogleReviewCard gpName={this.state.gpName} 
+                    gpPhone={this.state.gpPhone}
+                    gpAddress={this.state.gpAddress}
+                    gpRating={this.state.gpRating} />
+                
+                {/* Display components here, that you create below */}
                 <hr/>
                 <h1> YELP REVIEW</h1>
                 Name: {this.state.gpName} <br />
@@ -68,6 +71,28 @@ class ReviewComponent extends React.Component {
             </div>
         );
     }
+}
+
+// Create ___ReviewCard components that display results from each API as a card
+
+const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpRating}) =>{
+    return(
+        <div>
+            <Grid container direction="column" justify="center" alignItems="center">
+                <div className="tc review-component br3 pa3 ma2 dib bw2 shadow-5 sunflower-light">
+                    <h1>
+                        Google Reviews on the restaurant...
+                    </h1>
+                    <h3>
+                        Name: {gpName} <br />
+                        Phone: {gpPhone} <br />
+                        Address: {gpAddress} <br />
+                        Rating: {gpRating} <br />
+                    </h3>
+                </div>
+            </Grid>
+        </div>
+    );
 }
 
 export default ReviewComponent;
