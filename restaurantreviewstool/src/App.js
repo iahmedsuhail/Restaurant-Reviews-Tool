@@ -26,7 +26,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       searchfield: '', 
-      searchresults: [], 
+      googleSearchresults: [],
+      yelpSearchresults: [],
       placeDetailsName: '', 
       placeDetailsID: ''
 
@@ -48,8 +49,21 @@ class App extends React.Component {
   onSearchClick() {
     fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${this.state.searchfield}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&type=restaurant`)
       .then(response=> response.json())
-      .then(data => {this.setState({ searchresults: data.results})})
-      .then(results => {console.log(this.state.searchresults.length + " results returned from google (logged in state update)")});
+      .then(data => {this.setState({ googleSearchresults: data.results})})
+      .then(results => {console.log(this.state.googleSearchresults.length + " results returned from google (logged in state update)")});
+    
+    fetch(`https://api.yelp.com/v3/businesses/search`, {
+      method: 'get',
+      headers: new Headers({
+        'Authorization' : 'Bearer' + 'RCxaGe1TDhf1kSiIKQW9Wb9eBfhYtANwDCmKKAO5SdGMYXKQQCXu5LamK9eM8fNZp27OvCZZYjNDGVn2bucWGULytCmdxFZgXah6mB2cAl161Gj14qy_MV4R-MC0XnYx'
+      }),
+      params: {
+      'term' : `${this.state.searchfield}`,
+      'categories' : 'restaurant'}})
+      .then(yelpResp => yelpResp.json())
+      .then(data => {this.setState({yelpSearchresults: data.results?? " "})})
+      .then(results => {console.log( "No. of results returned from yelp: " + this.state.yelpSearchresults.length)})
+      
   }
 
   onSearchCardClick(name, place_id){
@@ -62,8 +76,7 @@ class App extends React.Component {
       // Particles.js library for styling the application
       <div className="App">
         <Particles className='particles'
-          params={particlesOptions}
-        /> 
+          params={particlesOptions}/> 
         <BrowserRouter> {/* using react-router-dom for routing */}
           <NavigationBar />  {/* for navigation through the app, always rendered */}
           <Logo />   {/* a logo for the RestrauntReviewsTool */}
@@ -78,7 +91,8 @@ class App extends React.Component {
               path='/searchfilter' 
 
               render={(props) => <SearchFilter {...props}
-                                  searchresults={this.state.searchresults} 
+                                  googleSearchresults={this.state.googleSearchresults}
+                                  yelpSearchresults={this.state.yelpSearchresults}
                                   onSearchCardClick={this.onSearchCardClick}/> } 
             />  
 

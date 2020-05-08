@@ -9,22 +9,32 @@ class SearchFilter extends React.Component{
         return(
             <div className="App">
                 <h1 className="sunflower-medium">SEARCH RESULTS</h1>
-                <div style={{ overflow: 'scroll', height: '400px'}}> 
-                    {this.props.searchresults.map((re, i) => {
+                <div style={{overflow: 'scroll', height: '400px'}}>
+                    {this.props.googleSearchresults.map((re, i) => {
                         return(<SearchCard 
                             key={i} 
-                            name={this.props.searchresults[i].name} 
-                            address={this.props.searchresults[i].formatted_address} 
-                            rating={this.props.searchresults[i].rating}
-                            place_id={this.props.searchresults[i].place_id} 
-                            onSearchCardClick = {this.props.onSearchCardClick}  
-                        />);})}
+                            name={this.props.googleSearchresults[i].name} 
+                            address={this.props.googleSearchresults[i].formatted_address} 
+                            rating={this.props.googleSearchresults[i].rating}
+                            place_id={this.props.googleSearchresults[i].place_id} 
+                            onSearchCardClick = {this.props.onSearchCardClick}
+                        />);
+                    })}
+                    {this.props.yelpSearchresults.map((re2,i2)=> {
+                        return(<SearchCard
+                            key={i2}
+                            name={this.props.yelpSearchresults[i2].params.name}
+                            address={this.props.yelpSearchresults[i2].location.address1 + ','  + this.props.yelpSearchresults[i2].location.city}
+                            place_id={this.props.yelpSearchresults[i2].id}
+                            onSearchCardClick = {this.props.onSearchCardClick}
+                            />);
+                        })}
                 </div>
+            </div>
         );
     }
 }
 
-// The component below is populated from the results from the map and displayed above.
 const SearchCard = ({name, address, rating, place_id, onSearchCardClick}) => {
     return(
         <Grid container direction="column" justify="center" alignItems="center">
@@ -33,7 +43,7 @@ const SearchCard = ({name, address, rating, place_id, onSearchCardClick}) => {
                     onClick={() => onSearchCardClick(name, place_id)} >
                         <h2 >Name: {name}</h2>
                         <h5>Address: {address}</h5>
-                        <h5>Rating: {rating}</h5>
+                        <h5>Rating: {rating?? " "}</h5>
                 </div>
             </Link>  
         </Grid> 

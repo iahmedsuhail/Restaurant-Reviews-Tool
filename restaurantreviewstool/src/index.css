@@ -18,7 +18,8 @@ button {
 
 .sunflower-medium{
   font-family: 'Sunflower Medium';
-  color:#dfebf5;
+  /* color:#dfebf5; */
+  color: black
 }
 
 /* To remove the underlines from react-router */
