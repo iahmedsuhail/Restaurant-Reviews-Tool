@@ -54,9 +54,7 @@ class App extends React.Component {
     
     fetch(`https://api.yelp.com/v3/businesses/search`, {
       method: 'get',
-      headers: new Headers({
-        'Authorization' : 'Bearer' + 'RCxaGe1TDhf1kSiIKQW9Wb9eBfhYtANwDCmKKAO5SdGMYXKQQCXu5LamK9eM8fNZp27OvCZZYjNDGVn2bucWGULytCmdxFZgXah6mB2cAl161Gj14qy_MV4R-MC0XnYx'
-      }),
+      Authorization : 'Bearer' + 'RCxaGe1TDhf1kSiIKQW9Wb9eBfhYtANwDCmKKAO5SdGMYXKQQCXu5LamK9eM8fNZp27OvCZZYjNDGVn2bucWGULytCmdxFZgXah6mB2cAl161Gj14qy_MV4R-MC0XnYx',
       params: {
       'term' : `${this.state.searchfield}`,
       'categories' : 'restaurant'}})

@@ -10,6 +10,13 @@ class SearchFilter extends React.Component{
             <div className="App">
                 <h1 className="sunflower-medium">SEARCH RESULTS</h1>
                 <div style={{overflow: 'scroll', height: '400px'}}>
+                <SearchCard
+                            key={1}
+                            name={this.props.yelpSearchresults.name}
+                            address={this.props.yelpSearchresults.location}
+                            place_id={this.props.yelpSearchresults.id}
+                            onSearchCardClick = {this.props.onSearchCardClick}
+                            />
                     {this.props.googleSearchresults.map((re, i) => {
                         return(<SearchCard 
                             key={i} 
@@ -20,15 +27,11 @@ class SearchFilter extends React.Component{
                             onSearchCardClick = {this.props.onSearchCardClick}
                         />);
                     })}
-                    {this.props.yelpSearchresults.map((re2,i2)=> {
-                        return(<SearchCard
-                            key={i2}
-                            name={this.props.yelpSearchresults[i2].params.name}
-                            address={this.props.yelpSearchresults[i2].location.address1 + ','  + this.props.yelpSearchresults[i2].location.city}
-                            place_id={this.props.yelpSearchresults[i2].id}
-                            onSearchCardClick = {this.props.onSearchCardClick}
-                            />);
-                        })}
+                    {/* {this.props.yelpSearchresults.map((re,i) => { */}
+                        
+      
+                        {/* }) */}
+                    
                 </div>
             </div>
         );
