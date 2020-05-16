@@ -4,7 +4,7 @@ import './SearchForm.css';
 
 const SearchForm = ({ onInputChange, onSearchClick, searchfield }) => {
     return(
-        <div>
+        <div className="App">
             <p className=' sunflower-medium f-headline lh-solid f2'>
                 Welcome to Restaurant Reviews Tool! Search here for restaurants...
             </p>

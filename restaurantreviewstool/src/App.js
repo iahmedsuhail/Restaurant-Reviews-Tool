@@ -7,6 +7,7 @@ import SearchForm from './components/SearchForm/SearchForm.js';
 import SearchFilter from './components/SearchFilter/SearchFilter.js';
 import ReviewComponent from './components/ReviewComponent/ReviewComponent.js';
 import Particles from 'react-particles-js';
+import axios from 'axios';
 
 const particlesOptions = {
   particles: {
@@ -21,12 +22,14 @@ const particlesOptions = {
 }
 
 
+
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       searchfield: '', 
-      searchresults: [], 
+      yelpSearchresults: [],
+      googleSearchresults: [],
       placeDetailsName: '', 
       placeDetailsID: ''
 
@@ -46,10 +49,25 @@ class App extends React.Component {
   }
 
   onSearchClick() {
-    fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${this.state.searchfield}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&type=restaurant`)
+    fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/textsearch/json?query=${this.state.searchfield}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&type=restaurant`)
       .then(response=> response.json())
-      .then(data => {this.setState({ searchresults: data.results})})
-      .then(results => {console.log(this.state.searchresults.length + " results returned from google (logged in state update)")});
+      .then(data => {this.setState({ googleSearchresults: data.results})})
+      .then(results => {console.log(this.state.googleSearchresults.length + " results returned from google (logged in state update)")});
+    
+    
+    axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search?term=${this.state.searchfield}`, { 
+      headers : {
+        Authorization : `Bearer RCxaGe1TDhf1kSiIKQW9Wb9eBfhYtANwDCmKKAO5SdGMYXKQQCXu5LamK9eM8fNZp27OvCZZYjNDGVn2bucWGULytCmdxFZgXah6mB2cAl161Gj14qy_MV4R-MC0XnYx`,
+        'X-Requested-With': 'XMLHttpRequest'
+    },
+    params: {
+      location: "Auckland",
+      categories: "restaurant"
+    }})
+      .then(response => {this.setState({yelpSearchresults: response.data.businesses});
+            console.log(response.data.total + " results returned from yelp");})
+      .catch(err => {console.log("Error in Yelp Api Call" + err)});
+      
   }
 
   onSearchCardClick(name, place_id){
@@ -62,8 +80,7 @@ class App extends React.Component {
       // Particles.js library for styling the application
       <div className="App">
         <Particles className='particles'
-          params={particlesOptions}
-        /> 
+          params={particlesOptions}/> 
         <BrowserRouter> {/* using react-router-dom for routing */}
           <NavigationBar />  {/* for navigation through the app, always rendered */}
           <Logo />   {/* a logo for the RestrauntReviewsTool */}
@@ -78,7 +95,8 @@ class App extends React.Component {
               path='/searchfilter' 
 
               render={(props) => <SearchFilter {...props}
-                                  searchresults={this.state.searchresults} 
+                                  googleSearchresults={this.state.googleSearchresults}
+                                  yelpSearchresults={this.state.yelpSearchresults}
                                   onSearchCardClick={this.onSearchCardClick}/> } 
             />  
 
