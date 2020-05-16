@@ -31,8 +31,8 @@ class App extends React.Component {
       yelpSearchresults: [],
       googleSearchresults: [],
       placeDetailsName: '', 
-      placeDetailsID: ''
-
+      googleReviewID: '',
+      yelpReviewID: ''
     }
     
     this.onInputChange = this.onInputChange.bind(this);
@@ -70,8 +70,8 @@ class App extends React.Component {
       
   }
 
-  onSearchCardClick(name, place_id){
-    this.setState({placeDetailsName: name, placeDetailsID: place_id});
+  onSearchCardClick(name, google_id, yelp_id ){
+    this.setState({placeDetailsName: name, googleReviewID: google_id, yelpReviewID: yelp_id});
   }
 
 
@@ -102,9 +102,10 @@ class App extends React.Component {
 
             <Route 
               path='/reviewcomponent' 
-              render={(props) => <ReviewComponent {...props} placeDetailsID={this.state.placeDetailsID}/>}
+              render={(props) => <ReviewComponent {...props} 
+                                  google_place_ID={this.state.googleReviewID} 
+                                  yelp_place_ID={this.state.yelpReviewID} />}
               /> 
-
 
           </Switch>
         </BrowserRouter>

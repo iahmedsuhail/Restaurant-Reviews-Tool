@@ -17,7 +17,7 @@ class SearchFilter extends React.Component{
                             name={this.props.yelpSearchresults[i].name}
                             address={this.props.yelpSearchresults[i].location.display_address}
                             rating={this.props.yelpSearchresults[i].rating}
-                            place_id={this.props.yelpSearchresults[i].id}
+                            yelp_id={this.props.yelpSearchresults[i].id ?? ""}
                             onSearchCardClick = {this.props.onSearchCardClick}
                             />);
                 })}    
@@ -28,7 +28,7 @@ class SearchFilter extends React.Component{
                             name={this.props.googleSearchresults[i].name} 
                             address={this.props.googleSearchresults[i].formatted_address} 
                             rating={this.props.googleSearchresults[i].rating}
-                            place_id={this.props.googleSearchresults[i].place_id} 
+                            google_id={this.props.googleSearchresults[i].place_id ?? ""} 
                             onSearchCardClick = {this.props.onSearchCardClick}
                         />);
                     })}
@@ -38,12 +38,12 @@ class SearchFilter extends React.Component{
     }
 }
 
-const SearchCard = ({source, name, address, rating, place_id, onSearchCardClick}) => {
+const SearchCard = ({source, name, address, rating, google_id, yelp_id, onSearchCardClick}) => {
     return(
         <Grid container direction="column" justify="center" alignItems="center">
             <Link to='/reviewcomponent'>
                 <div className='tc search-filter br3 pa3 ma2 dib bw2 shadow-5 sunflower-light' 
-                    onClick={() => onSearchCardClick(name, place_id)} >
+                    onClick={() => onSearchCardClick(name, google_id, yelp_id)} >
                         <h1>{source}</h1>
                         <h2 >Name: {name}</h2>
                         <h5>Address: {address}</h5>
