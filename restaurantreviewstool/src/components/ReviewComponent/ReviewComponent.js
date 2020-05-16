@@ -27,7 +27,7 @@ class ReviewComponent extends React.Component {
         var rating = this.props.rating;
         // Call for Details from Google Places API
 
-        fetch(`https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=formatted_address,formatted_phone_number,name,rating`)
+        fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=formatted_address,formatted_phone_number,name,rating`)
         .then(response=> response.json())
         .then(data => {
             this.setState({ 
@@ -39,7 +39,7 @@ class ReviewComponent extends React.Component {
         })
 
         //Getting results from yelp, based on adress and name.
-       fetch(`https://api.yelp.com/v3/businesses/search/term=restaurant&location=${address}&radius=40000&${name}`)
+       fetch(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search/term=restaurant&location=${address}&radius=40000&${name}`)
         .then(response => response.json())
         .then(data => {
             if(data.result.address1 === address && data.result.name === name){
