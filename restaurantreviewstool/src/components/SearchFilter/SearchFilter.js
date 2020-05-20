@@ -40,7 +40,8 @@ class SearchFilter extends React.Component{
                             name={this.props.zomatoSearchresults[i].restaurant.name}
                             address={this.props.zomatoSearchresults[i].restaurant.location.address}
                             rating={this.props.zomatoSearchresults[i].restaurant.user_rating.aggregate_rating}
-                            
+                            zomato_id={this.props.zomatoSearchresults[i].restaurant.id ?? ""}
+                            onSearchCardClick = {this.props.onSearchCardClick}    
                         />);
                     })}
                 </div>
@@ -49,12 +50,12 @@ class SearchFilter extends React.Component{
     }
 }
 
-const SearchCard = ({source, name, address, rating, google_id, yelp_id, onSearchCardClick}) => {
+const SearchCard = ({source, name, address, rating, google_id, yelp_id, zomato_id, onSearchCardClick}) => {
     return(
         <Grid container direction="column" justify="center" alignItems="center">
             <Link to='/reviewcomponent'>
                 <div className='tc search-filter br3 pa3 ma2 dib bw2 shadow-5 sunflower-light' 
-                    onClick={() => onSearchCardClick(name, google_id, yelp_id)} >
+                    onClick={() => onSearchCardClick(name, google_id, yelp_id, zomato_id)} >
                         <h1>{source}</h1>
                         <h2 >Name: {name}</h2>
                         <h5>Address: {address}</h5>

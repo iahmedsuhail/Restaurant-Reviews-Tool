@@ -18,7 +18,12 @@ class ReviewComponent extends React.Component {
             yelpAddress: '',
             yelpPhone: '',
             yelpRating: '',
-            yelp_place_ID: ''
+            yelp_place_ID: '',
+
+            zomatoName: '',
+            zomatoAddress: '', 
+            zomatoRating: '', 
+            zomato_place_ID: ''
         }
     }
 
@@ -27,6 +32,7 @@ class ReviewComponent extends React.Component {
         //Data passed on from the search form
         var googleID = this.props.google_place_ID;
         var yelpID = this.props.yelp_place_ID;
+        var zomatoID = this.props.zomato_place_ID;
         var name = this.props.name;
         var address = this.props.address;
         var rating = this.props.rating;
@@ -58,8 +64,26 @@ class ReviewComponent extends React.Component {
                         yelpRating: response.data.rating
                         })
             }).catch(err => "No yelp Id provided");
+        }
+
+        else if(zomatoID !== undefined){
+            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://developers.zomato.com/api/v2.1/restaurant?res_id=${zomatoID}`, {
+                headers: {
+                    Accept: "application/json",
+                    "User-Key": "84d624178d6b4c6219f90cd5634fd956"
+                }
+            }).then(response => response.json())
+            .then(data => {
+                this.setState({ 
+                    zomatoName: data.name, 
+                    zomatoAddress: data.location.address,  
+                    zomatoRating: data.user_rating.aggregate_rating,
+                })})
+            .catch(err => "No zomato Id provided");
+        }
+
+
     }
-}
 
     render() {
             if(this.state.gpName !== ''){
@@ -78,6 +102,13 @@ class ReviewComponent extends React.Component {
                             yelpPhone={this.state.yelpPhone}
                             yelpAddress={this.state.yelpAddress}
                             yelpRating={this.state.yelpRating}/>
+                    </div>);
+            } else if(this.state.zomatoName !== ''){
+                return (
+                    <div className="App">
+                        <ZomatoReviewCard zomatoName={this.state.zomatoName}
+                            zomatoAddress={this.state.zomatoAddress}
+                            zomatoRating={this.state.zomatoRating}/>
                     </div>);
             } else {
                 return (<div className="App"></div>);
@@ -130,6 +161,25 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpRating, gpUserReviews})
                      </div>
                 </div>
 
+            </Grid>
+        </div>
+    );
+}
+
+const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoAddress, zomatoRating}) =>{
+    return(
+        <div>
+            <Grid container direction="column" justify="center" alignItems="center">
+                <div className="tc review-component br3 pa3 ma2 dib bw2 shadow-5 sunflower-light">
+                    <h1>
+                        Zomato Review
+                    </h1>
+                    <h3>
+                        Name: {zomatoName} <br />
+                        Address: {zomatoAddress} <br />
+                        Rating: {zomatoRating} <br />
+                    </h3>
+                </div>
             </Grid>
         </div>
     );

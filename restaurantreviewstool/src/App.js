@@ -81,8 +81,12 @@ class App extends React.Component {
     .then(results => {console.log(this.state.zomatoSearchresults)})
   }
 
-  onSearchCardClick(name, google_id, yelp_id ){
-    this.setState({placeDetailsName: name, googleReviewID: google_id, yelpReviewID: yelp_id});
+  onSearchCardClick(name, google_id, yelp_id, zomato_id){
+    this.setState({placeDetailsName: name, 
+      googleReviewID: google_id, 
+      yelpReviewID: yelp_id,
+      zomatoReviewID: zomato_id
+    });
   }
 
 
@@ -116,7 +120,8 @@ class App extends React.Component {
               path='/reviewcomponent' 
               render={(props) => <ReviewComponent {...props} 
                                   google_place_ID={this.state.googleReviewID} 
-                                  yelp_place_ID={this.state.yelpReviewID} />}
+                                  yelp_place_ID={this.state.yelpReviewID}
+                                  zomato_place_ID={this.state.zomatoReviewID} />}
               /> 
 
           </Switch>
