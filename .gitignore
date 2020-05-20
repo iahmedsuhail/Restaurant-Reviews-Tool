@@ -22,7 +22,8 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 restaurantreviewstool/.idea/workspace.xml
-restaurantreviewstool/.idea/vcs.xml
-restaurantreviewstool/.idea/restaurantreviewstool.iml
-restaurantreviewstool/.idea/modules.xml
 restaurantreviewstool/.idea/misc.xml
+restaurantreviewstool/.idea/modules.xml
+restaurantreviewstool/.idea/restaurantreviewstool.iml
+restaurantreviewstool/.idea/vcs.xml
+
