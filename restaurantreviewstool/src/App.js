@@ -32,7 +32,9 @@ class App extends React.Component {
       googleSearchresults: [],
       placeDetailsName: '', 
       googleReviewID: '',
-      yelpReviewID: ''
+      yelpReviewID: '', 
+      zomatoSearchresults: [], 
+      zomatoReviewID: ''
     }
     
     this.onInputChange = this.onInputChange.bind(this);
@@ -67,11 +69,24 @@ class App extends React.Component {
       .then(response => {this.setState({yelpSearchresults: response.data.businesses});
             console.log(response.data.total + " results returned from yelp");})
       .catch(err => {console.log("Error in Yelp Api Call" + err)});
+    
       
+    fetch(`${'https://cors-anywhere.herokuapp.com/'}https://developers.zomato.com/api/v2.1/search?q=${this.state.searchfield}&count=10&lat=-36.848461&lon=174.763336&radius=100000`, {
+      headers: {
+      Accept: "application/json",
+      "User-Key": "84d624178d6b4c6219f90cd5634fd956"
+      }
+    }).then(response => response.json())
+    .then(data => {this.setState({ zomatoSearchresults: data.restaurants})})
+    .then(results => {console.log(this.state.zomatoSearchresults)})
   }
 
-  onSearchCardClick(name, google_id, yelp_id ){
-    this.setState({placeDetailsName: name, googleReviewID: google_id, yelpReviewID: yelp_id});
+  onSearchCardClick(name, google_id, yelp_id, zomato_id){
+    this.setState({placeDetailsName: name, 
+      googleReviewID: google_id, 
+      yelpReviewID: yelp_id,
+      zomatoReviewID: zomato_id
+    });
   }
 
 
@@ -97,6 +112,7 @@ class App extends React.Component {
               render={(props) => <SearchFilter {...props}
                                   googleSearchresults={this.state.googleSearchresults}
                                   yelpSearchresults={this.state.yelpSearchresults}
+                                  zomatoSearchresults={this.state.zomatoSearchresults}
                                   onSearchCardClick={this.onSearchCardClick}/> } 
             />  
 
@@ -104,7 +120,8 @@ class App extends React.Component {
               path='/reviewcomponent' 
               render={(props) => <ReviewComponent {...props} 
                                   google_place_ID={this.state.googleReviewID} 
-                                  yelp_place_ID={this.state.yelpReviewID} />}
+                                  yelp_place_ID={this.state.yelpReviewID}
+                                  zomato_place_ID={this.state.zomatoReviewID} />}
               /> 
 
           </Switch>
