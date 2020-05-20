@@ -11,6 +11,7 @@ class ReviewComponent extends React.Component {
             gpAddress: '', 
             gpPhone: '', 
             gpRating: '',
+            gpUserReviews: [],
             google_place_ID: '',
 
             yelpName: '',
@@ -32,14 +33,15 @@ class ReviewComponent extends React.Component {
         // Call for Details from Google Places API
 
         if(googleID !== undefined){
-            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=formatted_address,formatted_phone_number,name,rating`)
+            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=review,formatted_address,formatted_phone_number,name,rating`)
             .then(response=> response.json())
             .then(data => {
                 this.setState({ 
                     gpName: data.result.name, 
                     gpAddress: data.result.formatted_address, 
                     gpPhone: data.result.formatted_phone_number, 
-                    gpRating: data.result.rating
+                    gpRating: data.result.rating,
+                    gpUserReviews: data.result.reviews
                 })}).catch(err => "No google Id provided");
         } 
         else if(yelpID !== undefined){
@@ -66,7 +68,8 @@ class ReviewComponent extends React.Component {
                     <GoogleReviewCard gpName={this.state.gpName} 
                         gpPhone={this.state.gpPhone}
                         gpAddress={this.state.gpAddress}
-                        gpRating={this.state.gpRating} />
+                        gpRating={this.state.gpRating}
+                        gpUserReviews={this.state.gpUserReviews} />
                 </div>);
             } else if(this.state.yelpName !== ''){
                 return (
@@ -103,11 +106,11 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpRating}) =>{
         </div>
     );
 }
-const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpRating}) =>{
+const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpRating, gpUserReviews}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
-                <div className="tc review-component br3 pa3 ma2 dib bw2 shadow-5 sunflower-light">
+                <div className="tc review-component  br3 pa3 ma2 dib bw2 shadow-5 sunflower-light mw-75 w-75">
                     <h1>
                         Google Review:
                     </h1>
@@ -116,8 +119,17 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpRating}) =>{
                         Phone: {gpPhone} <br />
                         Address: {gpAddress} <br />
                         Rating: {gpRating} <br />
+                        Individual Reviews: <br />
                     </h3>
+                     <div class = "reviewBox">
+                        {gpUserReviews.map((re, i) => {
+                           return <h3 class = "review">
+                            {gpUserReviews[i].rating}/5 -  {gpUserReviews[i].text} <br />
+                           </h3>
+                        })}
+                     </div>
                 </div>
+
             </Grid>
         </div>
     );
