@@ -32,6 +32,17 @@ class SearchFilter extends React.Component{
                             onSearchCardClick = {this.props.onSearchCardClick}
                         />);
                     })}
+
+                    {this.props.zomatoSearchresults.map((re, i) => {
+                        return(<SearchCard 
+                            key={i} 
+                            source="Zomato"
+                            name={this.props.zomatoSearchresults[i].restaurant.name}
+                            address={this.props.zomatoSearchresults[i].restaurant.location.address}
+                            rating={this.props.zomatoSearchresults[i].restaurant.user_rating.aggregate_rating}
+                            
+                        />);
+                    })}
                 </div>
             </div>
         );
