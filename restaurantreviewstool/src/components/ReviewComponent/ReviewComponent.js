@@ -14,6 +14,8 @@ class ReviewComponent extends React.Component {
             gpUserReviews: [],
             gpPrice: '',
             gpWebsite: '',
+            gpPhotoReference: '',
+            gpImage: '',
             google_place_ID: '',
 
             yelpName: '',
@@ -44,10 +46,11 @@ class ReviewComponent extends React.Component {
         // var name = this.props.name;
         // var address = this.props.address;
         // var rating = this.props.rating;
+        var photo_ref;
         // Call for Details from Google Places API
 
         if(googleID !== undefined){
-            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=review,formatted_address,formatted_phone_number,name,rating,price_level`)
+            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=photo,review,formatted_address,formatted_phone_number,name,rating,price_level`)
             .then(response=> response.json())
             .then(data => {
                 this.setState({ 
@@ -58,8 +61,21 @@ class ReviewComponent extends React.Component {
                     gpPrice: data.result.price_level,
                     gpWebsite: data.result.reviews.author_url,
                     gpUserReviews: data.result.reviews,
+                    gpPhotoReference: data.result.photos[1].photo_reference
                 })}).catch(err => "No google Id provided");
-        } 
+                var photo_ref = this.state.gpPhotoReference;
+            //Get Image jpg
+            console.log(photo_ref);
+                fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo_ref}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw`)
+                .then(response=> response.blob())
+                .then(data => {
+                    this.setState({
+                        gpImage: URL.createObjectURL(data)
+                    })}).catch(err => "No google photo provided");
+                console.log("i have ran");
+                console.log(this.state.gpImage)
+
+            }
         else if(yelpID !== undefined){
         axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpID}`, { 
                 headers : {
@@ -133,7 +149,8 @@ class ReviewComponent extends React.Component {
                         gpPrice={this.state.gpPrice}
                         gpRating={this.state.gpRating}
                         gpWebsite={this.state.gpWebsite}
-                        gpUserReviews={this.state.gpUserReviews} />
+                        gpUserReviews={this.state.gpUserReviews}
+                        gpImage={this.state.gpImage} />
                 </div>);
             } else if(this.state.yelpName !== ''){
                 return (
@@ -194,7 +211,7 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
         </div>
     );
 }
-const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebsite, gpUserReviews}) =>{
+const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebsite, gpUserReviews, gpImage}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
@@ -202,6 +219,7 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebs
                     <h1>
                         Google Review:
                     </h1>
+                    <img src={gpImage}></img>
                     <h3>
                         Name: {gpName} <br />
                         Phone: {gpPhone} <br />
