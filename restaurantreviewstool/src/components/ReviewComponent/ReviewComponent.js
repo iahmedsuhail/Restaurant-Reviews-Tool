@@ -20,6 +20,7 @@ class ReviewComponent extends React.Component {
             yelpPhone: '',
             yelpWebsite: '',
             yelpRating: '',
+            yelpUserReviews: [],
             yelp_place_ID: '',
             yelpPrice: '',
 
@@ -72,6 +73,17 @@ class ReviewComponent extends React.Component {
                         yelpPrice: response.data.price
                         })
             }).catch(err => "No yelp Id provided");
+
+        axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpID}/reviews`, {
+                        headers : {
+                        Authorization : `Bearer RCxaGe1TDhf1kSiIKQW9Wb9eBfhYtANwDCmKKAO5SdGMYXKQQCXu5LamK9eM8fNZp27OvCZZYjNDGVn2bucWGULytCmdxFZgXah6mB2cAl161Gj14qy_MV4R-MC0XnYx`,
+                        'X-Requested-With': 'XMLHttpRequest',
+                        }
+        }).then(response => {
+                    this.setState({
+                        yelpUserReviews: response.data.reviews
+                        })
+            }).catch(err => "No yelp Id provided");
         }
 
 
@@ -115,6 +127,7 @@ class ReviewComponent extends React.Component {
                             yelpAddress={this.state.yelpAddress}
                             yelpWebsite={this.state.yelpWebsite}
                             yelpRating={this.state.yelpRating}
+                            yelpUserReviews={this.state.yelpUserReviews}
                             yelpPrice={this.state.yelpPrice}/>
                     </div>);
             } else if(this.state.zomatoName !== ''){
@@ -134,11 +147,11 @@ class ReviewComponent extends React.Component {
 }
 
 // Create ___ReviewCard components that display results from each API as a card
-const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPrice, yelpRating}) =>{
+const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPrice, yelpRating, yelpUserReviews}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
-                <div className="tc review-component br3 pa3 ma2 dib bw2 shadow-5 sunflower-light">
+                <div className="tc review-component  br3 pa3 ma2 dib bw2 shadow-5 sunflower-light mw-75 w-75">
                     <h1>
                         Yelp Review:
                     </h1>
@@ -149,8 +162,16 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
                         Webpage:<br/><a href= {yelpWebsite}>Yelp: {yelpName}</a><br/>
                         Price: {yelpPrice} <br />
                         Rating: {yelpRating} <br />
+                        Individual Reviews: <br />
                         <hr/>
                     </h3>
+                    <div class = "reviewBox">
+                        {yelpUserReviews.map((re, i) => {
+                           return <h3 class = "review">
+                            {yelpUserReviews[i].rating}/5 -  {yelpUserReviews[i].text} <br />
+                           </h3>
+                        })}
+                     </div>
                 </div>
             </Grid>
         </div>
