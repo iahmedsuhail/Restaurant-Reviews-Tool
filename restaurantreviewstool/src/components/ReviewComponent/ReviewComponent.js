@@ -62,19 +62,49 @@ class ReviewComponent extends React.Component {
                     gpWebsite: data.result.reviews.author_url,
                     gpUserReviews: data.result.reviews,
                     gpPhotoReference: data.result.photos[1].photo_reference
-                })}).catch(err => "No google Id provided");
-                var photo_ref = this.state.gpPhotoReference;
-            //Get Image jpg
-            console.log(photo_ref);
-                fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo_ref}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw`)
-                .then(response=> response.blob())
-                .then(data => {
-                    this.setState({
-                        gpImage: URL.createObjectURL(data)
-                    })}).catch(err => "No google photo provided");
-                console.log("i have ran");
-                console.log(this.state.gpImage)
 
+                })}).catch(err => "No google Id provided");
+                if(this.state.gpPhotoReference !== undefined){
+                    //Get Image jpg
+
+                    axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.state.gpPhotoReference}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw`, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                        }
+                    }).then(response => response.blob())
+                      .then(data => {
+                            this.setState({
+                              gpImage: data
+                  })});
+
+                    /**
+                    fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.state.gpPhotoReference}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw`)
+                    .then(response => response.blob())
+                    .then(data => {
+                          this.setState({
+                            gpImage: data
+                    })});
+                    **/
+                    /**
+                    fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.state.gpPhotoReference}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw`, {
+                        method: 'GET',
+                        headers: {
+                          'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: {
+                            'photoreference': `${this.state.gpPhotoReference}`
+                        }
+                    })
+
+                    .then(response=> response.blob())
+                    .then(data => {
+                        this.setState({
+                            gpImage: URL.createObjectURL(data)
+                        })}).catch(err => "No google photo provided");
+                    console.log("i have ran");
+                    console.log(this.state.gpImage)
+                    **/
+                }
             }
         else if(yelpID !== undefined){
         axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpID}`, { 
@@ -139,8 +169,14 @@ class ReviewComponent extends React.Component {
         }
     }
 
+    componentDidMount() {
+
+    }
+
+
     render() {
             if(this.state.gpName !== ''){
+            //console.log(this.state.gpPhotoReference);
             return (
                 <div className="App">
                     <GoogleReviewCard gpName={this.state.gpName} 
@@ -150,8 +186,10 @@ class ReviewComponent extends React.Component {
                         gpRating={this.state.gpRating}
                         gpWebsite={this.state.gpWebsite}
                         gpUserReviews={this.state.gpUserReviews}
-                        gpImage={this.state.gpImage} />
+                        gpImage={this.state.gpImage}
+                         />
                 </div>);
+
             } else if(this.state.yelpName !== ''){
                 return (
                     <div className="App">
