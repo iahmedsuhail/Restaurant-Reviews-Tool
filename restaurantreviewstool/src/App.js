@@ -158,7 +158,7 @@ class App extends React.Component {
           </Switch>
         </BrowserRouter>
 
-        {this.state.showPopup ? <Popup text='Click "Close Button" to hide popup' closePopup={this.togglePopup.bind(this)}  />  : null}
+        {this.state.showPopup ? <Popup closePopup={this.togglePopup.bind(this)}  />  : null}
             
       </div>
     );

@@ -199,7 +199,6 @@ class ReviewComponent extends React.Component {
             } else {
                 return (<div className="App"></div>);
             }
-        {/* Display components here, that you create below */}
     }
 }
 
@@ -215,7 +214,7 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
                     <h1>
                         Yelp Review:
                     </h1>
-                    <img src={yelpImage}></img>
+                    <img src={yelpImage} alt=""></img>
                     <h3>
                         Name: {yelpName} <br />
                         Phone: {yelpPhone} <br />
@@ -249,7 +248,7 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebs
                     <h1>
                         Google Review:
                     </h1>
-                    <img src={gpImage}></img>
+                    <img src={gpImage} alt=""></img>
                     <h3>
                         Name: {gpName} <br />
                         Phone: {gpPhone} <br />
@@ -272,7 +271,7 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebs
     );
 }
 
-const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoImage, zomatoWebsite, zomatoAddress, zomatoRating, zomatoUserReviews, zomatoCompareID, onAddToCompareClick}) =>{
+const ZomatoReviewCard = ({zomatoName, zomatoPriceRange, zomatoImage, zomatoWebsite, zomatoAddress, zomatoRating, zomatoUserReviews, zomatoCompareID, onAddToCompareClick}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
@@ -283,7 +282,7 @@ const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoImag
                     <h1>
                         Zomato Review
                     </h1>
-                    <img className="mw-75 w-75" src={zomatoImage}></img>
+                    <img className="mw-75 w-75" src={zomatoImage} alt=""></img>
                     <h3>
                         Name: {zomatoName} <br />
                         Address: {zomatoAddress} <br />

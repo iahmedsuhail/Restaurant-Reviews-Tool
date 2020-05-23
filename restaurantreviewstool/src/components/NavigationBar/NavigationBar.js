@@ -11,6 +11,9 @@ const NavigationBar = () => {
                     <Link className="no-underline" to='/'>
                         <p>Home</p>
                     </Link>
+                    <Link className="no-underline" to='/comparecomponent'>
+                        <p>Compare</p>
+                    </Link>
                 </div>
             </div>
             
