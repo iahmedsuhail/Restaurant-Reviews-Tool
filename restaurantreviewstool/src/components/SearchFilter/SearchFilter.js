@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './SearchFilter.css';
-
+import { Grid } from '@material-ui/core';
 class SearchFilter extends React.Component{
 
     render(){
@@ -9,10 +9,10 @@ class SearchFilter extends React.Component{
             <div className="App">
                 <h1 className="sunflower-medium">SEARCH RESULTS</h1>
                 {/* <div style={{overflow: 'scroll', height: '700px'}}> */}
-                <div style={{'coloumn-count' : '3'}}>
-                <div style={{'coloumn-width': '200px'}}>
-                <h2>Yelp</h2>
-                {this.props.yelpSearchresults.map((re,i) => {  
+                <div style={{'display' : 'flex', 'flexDirection' : 'coloumn'}}>
+                <Grid container direction="column">
+                <Grid style={{'grid-column': '1/3'}} >
+                <h2>Yelp</h2>                {this.props.yelpSearchresults.map((re,i) => {  
                 return (<SearchCard
                             key={i}
                             source="yelp reviews"
@@ -22,8 +22,11 @@ class SearchFilter extends React.Component{
                             yelp_id={this.props.yelpSearchresults[i].id ?? ""}
                             onSearchCardClick = {this.props.onSearchCardClick}
                             />);
-                })}</div>
-                <div style={{'coloumn-width': '200px'}}>
+              
+                })}</Grid>
+                </Grid>
+                <Grid container direction="column">
+                <Grid style={{'grid-column': '1/3'}}>
                 <h2>Google</h2>    
                 {this.props.googleSearchresults.map((re, i) => {
                     return(<SearchCard 
@@ -36,8 +39,11 @@ class SearchFilter extends React.Component{
                         onSearchCardClick = {this.props.onSearchCardClick}
                     />);
                 })}
-                </div>
-                <div style={{'coloumn-width': '200px'}}>
+                
+                </Grid>
+                </Grid>
+                <Grid container direction="column">
+                <Grid style={{'grid-column': '1/3'}}>
                 <h2>Zomato</h2>
                 {this.props.zomatoSearchresults.map((re, i) => {
                     return(<SearchCard 
@@ -50,8 +56,9 @@ class SearchFilter extends React.Component{
                         onSearchCardClick = {this.props.onSearchCardClick}    
                     />);
                 })}
-                </div>
-        </div>
+                </Grid>
+                </Grid>
+            </div>
         </div>
         );
     }
@@ -70,6 +77,5 @@ const SearchCard = ({source, name, address, rating, google_id, yelp_id, zomato_i
             </Link>  
     );
 }
-
 
 export default SearchFilter;
