@@ -97,7 +97,8 @@ class ReviewComponent extends React.Component {
                         yelpPhone: response.data.display_phone,
                         yelpWebsite: response.data.url,
                         yelpRating: response.data.rating,
-                        yelpPrice: response.data.price
+                        yelpPrice: response.data.price,
+                        yelpImage: response.data.image_url
                        })
             }).catch(err => "No yelp Id provided");
 
@@ -154,7 +155,7 @@ class ReviewComponent extends React.Component {
 
             return (
                 <div className="App">
-                    <GoogleReviewCard gpName={this.state.gpName} 
+                    <GoogleReviewCard gpName={this.state.gpName}
                         gpPhone={this.state.gpPhone}
                         gpAddress={this.state.gpAddress}
                         gpPrice={this.state.gpPrice}
@@ -168,11 +169,12 @@ class ReviewComponent extends React.Component {
             } else if(this.state.yelpName !== ''){
                 return (
                     <div className="App">
-                        <YelpReviewCard yelpName={this.state.yelpName} 
+                        <YelpReviewCard yelpName={this.state.yelpName}
                             yelpPhone={this.state.yelpPhone}
                             yelpAddress={this.state.yelpAddress}
                             yelpWebsite={this.state.yelpWebsite}
                             yelpRating={this.state.yelpRating}
+                            yelpImage={this.state.yelpImage}
                             yelpUserReviews={this.state.yelpUserReviews}
                             yelpPrice={this.state.yelpPrice}/>
                     </div>);
@@ -195,7 +197,7 @@ class ReviewComponent extends React.Component {
 }
 
 // Create ___ReviewCard components that display results from each API as a card
-const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPrice, yelpRating, yelpUserReviews}) =>{
+const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPrice, yelpRating, yelpUserReviews, yelpImage}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
@@ -203,6 +205,7 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
                     <h1>
                         Yelp Review:
                     </h1>
+                    <img src={yelpImage}></img>
                     <h3>
                         Name: {yelpName} <br />
                         Phone: {yelpPhone} <br />
