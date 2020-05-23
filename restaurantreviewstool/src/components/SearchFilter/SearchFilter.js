@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import './SearchFilter.css';
 import { Grid } from '@material-ui/core';
-
 class SearchFilter extends React.Component{
 
     render(){
@@ -23,6 +22,7 @@ class SearchFilter extends React.Component{
                             yelp_id={this.props.yelpSearchresults[i].id ?? ""}
                             onSearchCardClick = {this.props.onSearchCardClick}
                             />);
+              
                 })}</Grid>
                 </Grid>
                 <Grid container direction="column">
@@ -77,6 +77,5 @@ const SearchCard = ({source, name, address, rating, google_id, yelp_id, zomato_i
             </Link>  
     );
 }
-
 
 export default SearchFilter;
