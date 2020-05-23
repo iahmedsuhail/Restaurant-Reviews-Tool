@@ -13,9 +13,10 @@ class ReviewComponent extends React.Component {
             gpRating: '',
             gpUserReviews: [],
             gpPrice: '',
-            gpWebsite: '',
+            gpImage: '',
             gpPhotoReference: '',
             gpImage: '',
+            gpWebsite: '',
             google_place_ID: '',
 
             yelpName: '',
@@ -37,7 +38,6 @@ class ReviewComponent extends React.Component {
             zomatoUserReviews: [],
             zomato_place_ID: ''
         }
-
     }
 
     // Calls to all APIs should be made in this method
@@ -54,38 +54,37 @@ class ReviewComponent extends React.Component {
 
         if(googleID !== undefined){
             fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=photo,review,formatted_address,formatted_phone_number,name,rating,price_level`, {
-            mode: 'cors'
-            })
-            .then(response=> response.json())
-            .then(data => {
-                this.setState({
-                    gpName: data.result.name,
-                    gpAddress: data.result.formatted_address,
-                    gpPhone: data.result.formatted_phone_number,
-                    gpRating: data.result.rating,
-                    gpPrice: data.result.price_level,
-                    gpWebsite: data.result.reviews.author_url,
-                    gpUserReviews: data.result.reviews,
-                    gpPhotoReference: data.result.photos[0].photo_reference
-                },function() {
-                     if (this.state.gpPhotoReference !== '') {
-                              //Get Image jpg
-                              fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.state.gpPhotoReference}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw`, {
-                              mode: 'cors'
-                              }).then(response => response.blob())
-                              .then(data => {
-                                      this.setState({
-                                        gpImage: URL.createObjectURL(data)
-                              })}).catch(err => "No google photo provided");
-                          console.log(this.state.gpPhotoReference);
-                          console.log(this.state.gpImage);
-                      }
+                mode: 'cors'
+                })
+                .then(response=> response.json())
+                .then(data => {
+                    this.setState({ 
+                        gpName: data.result.name, 
+                        gpAddress: data.result.formatted_address, 
+                        gpPhone: data.result.formatted_phone_number, 
+                        gpRating: data.result.rating,
+                        gpPrice: data.result.price_level,
+                        gpWebsite: data.result.reviews.author_url,
+                        gpUserReviews: data.result.reviews,
+                         gpPhotoReference: data.result.photos[0].photo_reference
+                    },function() {
+                         if (this.state.gpPhotoReference !== '') {
+                                  //Get Image jpg
+                                  fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.state.gpPhotoReference}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw`, {
+                                  mode: 'cors'
+                                  }).then(response => response.blob())
+                                  .then(data => {
+                                          this.setState({
+                                            gpImage: URL.createObjectURL(data)
+                                  })}).catch(err => "No google photo provided");
+                              console.log(this.state.gpPhotoReference);
+                              console.log(this.state.gpImage);
+                          }
+                    }
+                )}).catch(err => "No google Id provided");
                 }
-            )}).catch(err => "No google Id provided");
-            }
-
         else if(yelpID !== undefined){
-        axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpID}`, {
+        axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpID}`, { 
                 headers : {
                 Authorization : `Bearer RCxaGe1TDhf1kSiIKQW9Wb9eBfhYtANwDCmKKAO5SdGMYXKQQCXu5LamK9eM8fNZp27OvCZZYjNDGVn2bucWGULytCmdxFZgXah6mB2cAl161Gj14qy_MV4R-MC0XnYx`,
                 'X-Requested-With': 'XMLHttpRequest',
@@ -99,7 +98,7 @@ class ReviewComponent extends React.Component {
                         yelpRating: response.data.rating,
                         yelpPrice: response.data.price,
                         yelpImage: response.data.image_url
-                       })
+                        })
             }).catch(err => "No yelp Id provided");
 
         axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpID}/reviews`, {
@@ -125,9 +124,9 @@ class ReviewComponent extends React.Component {
                 }
             }).then(response => response.json())
             .then(data => {
-                this.setState({
-                    zomatoName: data.name,
-                    zomatoAddress: data.location.address,
+                this.setState({ 
+                    zomatoName: data.name, 
+                    zomatoAddress: data.location.address,  
                     zomatoPriceRange: data.price_range,
                     zomatoWebsite: data.url,
                     zomatoRating: data.user_rating.aggregate_rating,
@@ -149,13 +148,11 @@ class ReviewComponent extends React.Component {
         }
     }
 
-
     render() {
             if(this.state.gpName !== ''){
-
             return (
                 <div className="App">
-                    <GoogleReviewCard gpName={this.state.gpName}
+                    <GoogleReviewCard gpName={this.state.gpName} 
                         gpPhone={this.state.gpPhone}
                         gpAddress={this.state.gpAddress}
                         gpPrice={this.state.gpPrice}
@@ -165,18 +162,18 @@ class ReviewComponent extends React.Component {
                         gpImage={this.state.gpImage}
                          />
                 </div>);
-
             } else if(this.state.yelpName !== ''){
                 return (
                     <div className="App">
-                        <YelpReviewCard yelpName={this.state.yelpName}
+                        <YelpReviewCard yelpName={this.state.yelpName} 
                             yelpPhone={this.state.yelpPhone}
                             yelpAddress={this.state.yelpAddress}
                             yelpWebsite={this.state.yelpWebsite}
                             yelpRating={this.state.yelpRating}
                             yelpImage={this.state.yelpImage}
                             yelpUserReviews={this.state.yelpUserReviews}
-                            yelpPrice={this.state.yelpPrice}/>
+                            yelpPrice={this.state.yelpPrice}
+                            onCompareClick={this.props.onCompareClick}/>
                     </div>);
             } else if(this.state.zomatoName !== ''){
                 return (
@@ -197,7 +194,7 @@ class ReviewComponent extends React.Component {
 }
 
 // Create ___ReviewCard components that display results from each API as a card
-const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPrice, yelpRating, yelpUserReviews, yelpImage}) =>{
+const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPrice, yelpRating, yelpUserReviews, yelpImage, yelpID, onCompareClick}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
@@ -205,6 +202,11 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
                     <h1>
                         Yelp Review:
                     </h1>
+                    <Link className="no-decoration bg-light-purple" to ='/comparecomponent'>
+                        <button className='grow f4 ph3 pv2 dib white bg-light-purple' onClick={()=> onCompareClick("yelp", yelpID)}>
+                            Compare     
+                        </button>
+                    </Link>
                     <img src={yelpImage}></img>
                     <h3>
                         Name: {yelpName} <br />
@@ -228,7 +230,7 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
         </div>
     );
 }
-const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebsite, gpUserReviews, gpImage}) =>{
+const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebsite, gpUserReviews,gpImage}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
@@ -259,7 +261,7 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebs
     );
 }
 
-const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoWebsite, zomatoImage, zomatoAddress, zomatoRating, zomatoUserReviews}) =>{
+const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoImage, zomatoWebsite, zomatoAddress, zomatoRating, zomatoUserReviews}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">

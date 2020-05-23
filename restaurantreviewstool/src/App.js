@@ -31,13 +31,18 @@ class App extends React.Component {
       googleReviewID: '',
       yelpReviewID: '', 
       zomatoSearchresults: [], 
-      zomatoReviewID: ''
+      zomatoReviewID: '',
+
+      googleCompareId: '',
+      zomatoCompareId: '',
+      yelpCompareId: ''
     }
     
     this.onInputChange = this.onInputChange.bind(this);
     this.onSearchClick = this.onSearchClick.bind(this);
 
     this.onSearchCardClick = this.onSearchCardClick.bind(this);
+    this.onCompareClick = this.onCompareClick.bind(this);
   }
 
   onInputChange(event) {
@@ -84,6 +89,15 @@ class App extends React.Component {
     });
   }
 
+  onCompareClick(source, id) {
+    if(source === "yelp"){
+      this.setState({yelpCompareId: id})
+    } else if(source === "google reviews") {
+      this.setState({googleCompareId: id})
+    } else if(source === "zomato"){
+    this.setState({zomatoCompareId: id})
+    }
+  }
 
   render(){
     return (
@@ -115,9 +129,18 @@ class App extends React.Component {
               render={(props) => <ReviewComponent {...props} 
                                   google_place_ID={this.state.googleReviewID} 
                                   yelp_place_ID={this.state.yelpReviewID}
-                                  zomato_place_ID={this.state.zomatoReviewID} />}
+                                  zomato_place_ID={this.state.zomatoReviewID}
+                                  onCompareClick={this.onCompareClick} />}
               /> 
 
+            <Route 
+              path='/comparecomponent'
+              render={(props) => <CompareComponent {...props}
+                                  yelpCompareId={this.state.yelpCompareId}
+                                  googleCompareId={this.state.googleCompareId}
+                                  zomatoCompareId={this.state.zomatoCompareId}
+                                />}
+            />
           </Switch>
         </BrowserRouter>
 
