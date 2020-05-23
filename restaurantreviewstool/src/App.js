@@ -20,8 +20,6 @@ const particlesOptions = {
   }
 }
 
-
-
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -40,8 +38,6 @@ class App extends React.Component {
     this.onSearchClick = this.onSearchClick.bind(this);
 
     this.onSearchCardClick = this.onSearchCardClick.bind(this);
-
-
   }
 
   onInputChange(event) {

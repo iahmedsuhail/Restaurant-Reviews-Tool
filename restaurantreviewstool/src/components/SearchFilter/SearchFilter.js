@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './SearchFilter.css';
+import { Grid } from '@material-ui/core';
 
 class SearchFilter extends React.Component{
 
@@ -9,7 +10,10 @@ class SearchFilter extends React.Component{
             <div className="App">
                 <h1 className="sunflower-medium">SEARCH RESULTS</h1>
                 {/* <div style={{overflow: 'scroll', height: '700px'}}> */}
-                {this.props.yelpSearchresults.map((re,i) => {  
+                <div style={{'display' : 'flex', 'flexDirection' : 'coloumn'}}>
+                <Grid container direction="column">
+                <Grid style={{'grid-column': '1/3'}} >
+                <h2>Yelp</h2>                {this.props.yelpSearchresults.map((re,i) => {  
                 return (<SearchCard
                             key={i}
                             source="yelp reviews"
@@ -19,32 +23,43 @@ class SearchFilter extends React.Component{
                             yelp_id={this.props.yelpSearchresults[i].id ?? ""}
                             onSearchCardClick = {this.props.onSearchCardClick}
                             />);
-                })}    
-                    {this.props.googleSearchresults.map((re, i) => {
-                        return(<SearchCard 
-                            key={i} 
-                            source="google reviews"
-                            name={this.props.googleSearchresults[i].name} 
-                            address={this.props.googleSearchresults[i].formatted_address} 
-                            rating={this.props.googleSearchresults[i].rating}
-                            google_id={this.props.googleSearchresults[i].place_id ?? ""} 
-                            onSearchCardClick = {this.props.onSearchCardClick}
-                        />);
-                    })}
-
-                    {this.props.zomatoSearchresults.map((re, i) => {
-                        return(<SearchCard 
-                            key={i} 
-                            source="Zomato"
-                            name={this.props.zomatoSearchresults[i].restaurant.name}
-                            address={this.props.zomatoSearchresults[i].restaurant.location.address}
-                            rating={this.props.zomatoSearchresults[i].restaurant.user_rating.aggregate_rating}
-                            zomato_id={this.props.zomatoSearchresults[i].restaurant.id ?? ""}
-                            onSearchCardClick = {this.props.onSearchCardClick}    
-                        />);
-                    })}
-                </div>
-            // </div>
+                })}</Grid>
+                </Grid>
+                <Grid container direction="column">
+                <Grid style={{'grid-column': '1/3'}}>
+                <h2>Google</h2>    
+                {this.props.googleSearchresults.map((re, i) => {
+                    return(<SearchCard 
+                        key={i} 
+                        source="google reviews"
+                        name={this.props.googleSearchresults[i].name} 
+                        address={this.props.googleSearchresults[i].formatted_address} 
+                        rating={this.props.googleSearchresults[i].rating}
+                        google_id={this.props.googleSearchresults[i].place_id ?? ""} 
+                        onSearchCardClick = {this.props.onSearchCardClick}
+                    />);
+                })}
+                
+                </Grid>
+                </Grid>
+                <Grid container direction="column">
+                <Grid style={{'grid-column': '1/3'}}>
+                <h2>Zomato</h2>
+                {this.props.zomatoSearchresults.map((re, i) => {
+                    return(<SearchCard 
+                        key={i} 
+                        source="Zomato"
+                        name={this.props.zomatoSearchresults[i].restaurant.name}
+                        address={this.props.zomatoSearchresults[i].restaurant.location.address}
+                        rating={this.props.zomatoSearchresults[i].restaurant.user_rating.aggregate_rating}
+                        zomato_id={this.props.zomatoSearchresults[i].restaurant.id ?? ""}
+                        onSearchCardClick = {this.props.onSearchCardClick}    
+                    />);
+                })}
+                </Grid>
+                </Grid>
+            </div>
+        </div>
         );
     }
 }
