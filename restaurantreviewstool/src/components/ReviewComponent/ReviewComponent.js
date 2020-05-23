@@ -12,6 +12,7 @@ class ReviewComponent extends React.Component {
             gpPhone: '', 
             gpRating: '',
             gpUserReviews: [],
+            gpPrice: '',
             gpWebsite: '',
             google_place_ID: '',
 
@@ -46,7 +47,7 @@ class ReviewComponent extends React.Component {
         // Call for Details from Google Places API
 
         if(googleID !== undefined){
-            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=review,formatted_address,formatted_phone_number,name,rating`)
+            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=review,formatted_address,formatted_phone_number,name,rating,price_level`)
             .then(response=> response.json())
             .then(data => {
                 this.setState({ 
@@ -54,8 +55,9 @@ class ReviewComponent extends React.Component {
                     gpAddress: data.result.formatted_address, 
                     gpPhone: data.result.formatted_phone_number, 
                     gpRating: data.result.rating,
+                    gpPrice: data.result.price_level,
+                    gpWebsite: data.result.reviews.author_url,
                     gpUserReviews: data.result.reviews,
-                    gpWebsite: data.result.website
                 })}).catch(err => "No google Id provided");
         } 
         else if(yelpID !== undefined){
@@ -128,6 +130,7 @@ class ReviewComponent extends React.Component {
                     <GoogleReviewCard gpName={this.state.gpName} 
                         gpPhone={this.state.gpPhone}
                         gpAddress={this.state.gpAddress}
+                        gpPrice={this.state.gpPrice}
                         gpRating={this.state.gpRating}
                         gpWebsite={this.state.gpWebsite}
                         gpUserReviews={this.state.gpUserReviews} />
@@ -173,7 +176,7 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
                         Name: {yelpName} <br />
                         Phone: {yelpPhone} <br />
                         Address: {yelpAddress} <br />
-                        Webpage:<br/><a href= {yelpWebsite}>Yelp: {yelpName}</a><br/>
+                        Webpage:<br/><a href= {yelpWebsite}>Link</a><br/>
                         Price: {yelpPrice} <br />
                         Rating: {yelpRating} <br />
                         Individual Reviews: <br />
@@ -191,7 +194,7 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
         </div>
     );
 }
-const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpRating, gpWebsite, gpUserReviews}) =>{
+const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebsite, gpUserReviews}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
@@ -203,8 +206,8 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpRating, gpWebsite, gpUs
                         Name: {gpName} <br />
                         Phone: {gpPhone} <br />
                         Address: {gpAddress} <br />
-                        Webpage:<br/><a href={gpWebsite}>Google Revviews: {gpName}</a> <br/>
-                        Price: <br/>
+                        Webpage:<br/><a href={gpWebsite}>Link</a> <br/>
+                        Price: {gpPrice} <br/>
                         Rating: {gpRating} <br />
                         Individual Reviews: <br />
                     </h3>
@@ -232,7 +235,7 @@ const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoWebs
                     <h3>
                         Name: {zomatoName} <br />
                         Address: {zomatoAddress} <br />
-                        Webpage:<br/><a href={zomatoWebsite}>Zomato: {zomatoName}</a><br />
+                        Webpage:<br/><a href={zomatoWebsite}>Link</a><br />
                         Price: {zomatoPriceRange} <br/>
                         Rating: {zomatoRating} <br />
                         Individual Reviews: <br />
