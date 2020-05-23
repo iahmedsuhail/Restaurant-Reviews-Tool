@@ -49,7 +49,7 @@ class ReviewComponent extends React.Component {
         // var name = this.props.name;
         // var address = this.props.address;
         // var rating = this.props.rating;
-        var photo_ref;
+        // var photo_ref;
         // Call for Details from Google Places API
 
         if(googleID !== undefined){
@@ -192,7 +192,6 @@ class ReviewComponent extends React.Component {
             } else {
                 return (<div className="App"></div>);
             }
-        {/* Display components here, that you create below */}
     }
 }
 
@@ -205,7 +204,7 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
                     <h1>
                         Yelp Review:
                     </h1>
-                    <img src={yelpImage}></img>
+                    <img src={yelpImage} alt="Yelp"></img>
                     <h3>
                         Name: {yelpName} <br />
                         Phone: {yelpPhone} <br />
@@ -236,7 +235,7 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebs
                     <h1>
                         Google Review:
                     </h1>
-                    <img src={gpImage}></img>
+                    <img src={gpImage} alt="Google"></img>
                     <h3>
                         Name: {gpName} <br />
                         Phone: {gpPhone} <br />
@@ -267,7 +266,7 @@ const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoWebs
                     <h1>
                         Zomato Review
                     </h1>
-                    <img className="mw-75 w-75" src={zomatoImage}></img>
+                    <img className="mw-75 w-75" src={zomatoImage} alt="Zomato"></img>
                     <h3>
                         Name: {zomatoName} <br />
                         Address: {zomatoAddress} <br />

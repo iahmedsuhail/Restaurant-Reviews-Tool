@@ -6,7 +6,7 @@ const SearchForm = ({ onInputChange, onSearchClick, searchfield }) => {
 
     let history = useHistory();
     var handleKeyDown = (e) => {
-        if (e.key === 'Enter' && searchfield.trim().length != 0) {
+        if (e.key === 'Enter' && searchfield.trim().length !== 0) {
             onSearchClick(); 
             history.push('/searchfilter');
         }
