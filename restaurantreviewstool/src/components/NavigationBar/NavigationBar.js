@@ -9,13 +9,13 @@ const NavigationBar = () => {
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <Logo/> {/* a logo for the RestrauntReviewsTool */}
             
-            <div>
+            <div style={{display: 'flex'}}>
                 <div className='f3 dim black pa2 pointer'>
-                    <div onClick={() => history.goBack()} > 
-                        Back
-                    </div>
+                    <Link className="no-underline" onClick={() => history.goBack()}>
+                        <p>Back</p>
+                    </Link>
                 </div>
-
+                
                 <div className='f3 dim black pa2 pointer'>
                     <Link className="no-underline" to='/'>
                         <p>Home</p>
