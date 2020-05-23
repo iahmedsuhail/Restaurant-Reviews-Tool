@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import './App.css';
 import NavigationBar from './components/NavigationBar/NavigationBar.js';
 import SearchForm from './components/SearchForm/SearchForm.js';
@@ -81,7 +81,7 @@ class App extends React.Component {
       }
     }).then(response => response.json())
     .then(data => {this.setState({ zomatoSearchresults: data.restaurants})})
-    .then(results => {console.log(this.state.zomatoSearchresults)})
+    .then(results => {console.log(this.state.zomatoSearchresults)});
   }
 
   getCity(position) {

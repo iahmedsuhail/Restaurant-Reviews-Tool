@@ -53,7 +53,7 @@ class ReviewComponent extends React.Component {
         // Call for Details from Google Places API
 
         if(googleID !== undefined){
-            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=photo,review,formatted_address,formatted_phone_number,name,rating,price_level`, {
+            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=photo,review,formatted_address,formatted_phone_number,name,rating,price_level,website`, {
             mode: 'cors'
             })
             .then(response=> response.json())
@@ -64,7 +64,7 @@ class ReviewComponent extends React.Component {
                     gpPhone: data.result.formatted_phone_number,
                     gpRating: data.result.rating,
                     gpPrice: data.result.price_level,
-                    gpWebsite: data.result.reviews.author_url,
+                    gpWebsite: data.result.website,
                     gpUserReviews: data.result.reviews,
                     gpPhotoReference: data.result.photos[0].photo_reference
                 },function() {
