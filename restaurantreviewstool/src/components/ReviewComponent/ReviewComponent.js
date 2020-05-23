@@ -22,6 +22,7 @@ class ReviewComponent extends React.Component {
             yelpAddress: '',
             yelpPhone: '',
             yelpWebsite: '',
+            yelpImage: '',
             yelpRating: '',
             yelpUserReviews: [],
             yelp_place_ID: '',
@@ -32,6 +33,7 @@ class ReviewComponent extends React.Component {
             zomatoRating: '', 
             zomatoPriceRange: '',
             zomatoWebsite: '',
+            zomatoImage: '',
             zomatoUserReviews: [],
             zomato_place_ID: ''
         }
@@ -96,7 +98,7 @@ class ReviewComponent extends React.Component {
                         yelpWebsite: response.data.url,
                         yelpRating: response.data.rating,
                         yelpPrice: response.data.price
-                        })
+                       })
             }).catch(err => "No yelp Id provided");
 
         axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpID}/reviews`, {
@@ -128,6 +130,7 @@ class ReviewComponent extends React.Component {
                     zomatoPriceRange: data.price_range,
                     zomatoWebsite: data.url,
                     zomatoRating: data.user_rating.aggregate_rating,
+                    zomatoImage: data.photos[0].photo.url
                 })})
             .catch(err => "No zomato Id provided");
 
@@ -181,7 +184,8 @@ class ReviewComponent extends React.Component {
                             zomatoWebsite={this.state.zomatoWebsite}
                             zomatoPriceRange={this.state.zomatoPriceRange}
                             zomatoUserReviews={this.state.zomatoUserReviews}
-                            zomatoRating={this.state.zomatoRating}/>
+                            zomatoRating={this.state.zomatoRating}
+                            zomatoImage={this.state.zomatoImage}/>
                     </div>);
             } else {
                 return (<div className="App"></div>);
@@ -252,7 +256,7 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebs
     );
 }
 
-const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoWebsite, zomatoAddress, zomatoRating, zomatoUserReviews}) =>{
+const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoWebsite, zomatoImage, zomatoAddress, zomatoRating, zomatoUserReviews}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
@@ -260,6 +264,7 @@ const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoWebs
                     <h1>
                         Zomato Review
                     </h1>
+                    <img className="mw-75 w-75" src={zomatoImage}></img>
                     <h3>
                         Name: {zomatoName} <br />
                         Address: {zomatoAddress} <br />
