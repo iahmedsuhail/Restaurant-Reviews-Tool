@@ -8,7 +8,7 @@ class SearchFilter extends React.Component{
         return(
             <div className="App">
                 <h1 className="sunflower-medium">SEARCH RESULTS</h1>
-                <div style={{overflow: 'scroll', height: '700px'}}>
+                {/* <div style={{overflow: 'scroll', height: '700px'}}> */}
                 {this.props.yelpSearchresults.map((re,i) => {  
                 return (<SearchCard
                             key={i}
@@ -44,7 +44,7 @@ class SearchFilter extends React.Component{
                         />);
                     })}
                 </div>
-            </div>
+            // </div>
         );
     }
 }
@@ -52,7 +52,7 @@ class SearchFilter extends React.Component{
 const SearchCard = ({source, name, address, rating, google_id, yelp_id, zomato_id, onSearchCardClick}) => {
     return(
             <Link to='/reviewcomponent'>
-                <div className='tc grow search-filter br3 pa3 ma2 dib bw2 shadow-5 sunflower-light' 
+                <div className='tc grow search-filter br3 pa4 ma2 dib bw2 shadow-5 sunflower-light' 
                     onClick={() => onSearchCardClick(name, google_id, yelp_id, zomato_id)} >
                         <h1>{source}</h1>
                         <h2 >Name: {name}</h2>
