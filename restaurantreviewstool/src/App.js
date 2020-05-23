@@ -20,8 +20,6 @@ const particlesOptions = {
   }
 }
 
-
-
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -33,7 +31,10 @@ class App extends React.Component {
       googleReviewID: '',
       yelpReviewID: '', 
       zomatoSearchresults: [], 
-      zomatoReviewID: ''
+      zomatoReviewID: '',
+      latitude: -36.848461,
+      longitude: 174.763336,
+      userCity: "Auckland"
     }
     
     this.onInputChange = this.onInputChange.bind(this);
@@ -41,7 +42,11 @@ class App extends React.Component {
 
     this.onSearchCardClick = this.onSearchCardClick.bind(this);
 
+    this.getCity = this.getCity.bind(this);
 
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.getCity);
+    }
   }
 
   onInputChange(event) {
@@ -50,19 +55,18 @@ class App extends React.Component {
   }
 
   onSearchClick() {
-    fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/textsearch/json?query=${this.state.searchfield}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&type=restaurant`)
+    fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/textsearch/json?query=${this.state.searchfield}&location=${this.state.latitude},${this.state.longitude}&radius=10000&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&type=restaurant`)
       .then(response=> response.json())
       .then(data => {this.setState({ googleSearchresults: data.results})})
       .then(results => {console.log(this.state.googleSearchresults.length + " results returned from google (logged in state update)")});
-    
-    
+
     axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search?term=${this.state.searchfield}`, { 
       headers : {
         Authorization : `Bearer RCxaGe1TDhf1kSiIKQW9Wb9eBfhYtANwDCmKKAO5SdGMYXKQQCXu5LamK9eM8fNZp27OvCZZYjNDGVn2bucWGULytCmdxFZgXah6mB2cAl161Gj14qy_MV4R-MC0XnYx`,
         'X-Requested-With': 'XMLHttpRequest'
     },
     params: {
-      location: "Auckland",
+      location: this.state.userCity,
       categories: "restaurant"
     }})
       .then(response => {this.setState({yelpSearchresults: response.data.businesses});
@@ -70,7 +74,7 @@ class App extends React.Component {
       .catch(err => {console.log("Error in Yelp Api Call" + err)});
     
       
-    fetch(`${'https://cors-anywhere.herokuapp.com/'}https://developers.zomato.com/api/v2.1/search?q=${this.state.searchfield}&count=10&lat=-36.848461&lon=174.763336&radius=100000`, {
+    fetch(`${'https://cors-anywhere.herokuapp.com/'}https://developers.zomato.com/api/v2.1/search?q=${this.state.searchfield}&count=10&lat=${this.state.latitude}&lon=${this.state.longitude}&radius=100000`, {
       headers: {
       Accept: "application/json",
       "User-Key": "84d624178d6b4c6219f90cd5634fd956"
@@ -78,6 +82,18 @@ class App extends React.Component {
     }).then(response => response.json())
     .then(data => {this.setState({ zomatoSearchresults: data.restaurants})})
     .then(results => {console.log(this.state.zomatoSearchresults)})
+  }
+
+  getCity(position) {
+    this.setState({
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    });
+    
+    fetch(`https://geocode.xyz/${this.state.latitude},${this.state.longitude}?json=1`)
+      .then(response => response.json())
+      .then(data => {this.setState({userCity: data.city})})
+      .then(console.log);
   }
 
   onSearchCardClick(name, google_id, yelp_id, zomato_id){
