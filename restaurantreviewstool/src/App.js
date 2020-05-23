@@ -5,6 +5,8 @@ import NavigationBar from './components/NavigationBar/NavigationBar.js';
 import SearchForm from './components/SearchForm/SearchForm.js';
 import SearchFilter from './components/SearchFilter/SearchFilter.js';
 import ReviewComponent from './components/ReviewComponent/ReviewComponent.js';
+import CompareComponent from './components/CompareComponent/CompareComponent.js';
+import Popup from './components/Popup.js';
 import Particles from 'react-particles-js';
 import axios from 'axios';
 
@@ -35,14 +37,16 @@ class App extends React.Component {
 
       googleCompareId: '',
       zomatoCompareId: '',
-      yelpCompareId: ''
+      yelpCompareId: '',
+      showPopup: false
     }
     
     this.onInputChange = this.onInputChange.bind(this);
     this.onSearchClick = this.onSearchClick.bind(this);
 
     this.onSearchCardClick = this.onSearchCardClick.bind(this);
-    this.onCompareClick = this.onCompareClick.bind(this);
+    this.onAddToCompareClick = this.onAddToCompareClick.bind(this);
+    this.togglePopup = this.togglePopup.bind(this);
   }
 
   onInputChange(event) {
@@ -64,7 +68,8 @@ class App extends React.Component {
     },
     params: {
       location: "Auckland",
-      categories: "restaurant"
+      categories: "restaurant",
+      offset: "20"
     }})
       .then(response => {this.setState({yelpSearchresults: response.data.businesses});
             console.log(response.data.total + " results returned from yelp");})
@@ -89,14 +94,23 @@ class App extends React.Component {
     });
   }
 
-  onCompareClick(source, id) {
+  onAddToCompareClick(source, id) {
     if(source === "yelp"){
-      this.setState({yelpCompareId: id})
+      this.setState({yelpCompareId: id});
+      this.togglePopup();
     } else if(source === "google reviews") {
-      this.setState({googleCompareId: id})
+      this.setState({googleCompareId: id});
+      this.togglePopup();
     } else if(source === "zomato"){
-    this.setState({zomatoCompareId: id})
+    this.setState({zomatoCompareId: id});
+    this.togglePopup();
     }
+  }
+
+  togglePopup() {
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
   }
 
   render(){
@@ -130,7 +144,7 @@ class App extends React.Component {
                                   google_place_ID={this.state.googleReviewID} 
                                   yelp_place_ID={this.state.yelpReviewID}
                                   zomato_place_ID={this.state.zomatoReviewID}
-                                  onCompareClick={this.onCompareClick} />}
+                                  onAddToCompareClick={this.onAddToCompareClick} />}
               /> 
 
             <Route 
@@ -144,6 +158,8 @@ class App extends React.Component {
           </Switch>
         </BrowserRouter>
 
+        {this.state.showPopup ? <Popup text='Click "Close Button" to hide popup' closePopup={this.togglePopup.bind(this)}  />  : null}
+            
       </div>
     );
   }

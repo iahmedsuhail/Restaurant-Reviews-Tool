@@ -13,11 +13,11 @@ class ReviewComponent extends React.Component {
             gpRating: '',
             gpUserReviews: [],
             gpPrice: '',
-            gpImage: '',
             gpPhotoReference: '',
             gpImage: '',
             gpWebsite: '',
             google_place_ID: '',
+            googleCompareID: '',
 
             yelpName: '',
             yelpAddress: '',
@@ -28,6 +28,7 @@ class ReviewComponent extends React.Component {
             yelpUserReviews: [],
             yelp_place_ID: '',
             yelpPrice: '',
+            yelpCompareID: '',
 
             zomatoName: '',
             zomatoAddress: '', 
@@ -36,7 +37,8 @@ class ReviewComponent extends React.Component {
             zomatoWebsite: '',
             zomatoImage: '',
             zomatoUserReviews: [],
-            zomato_place_ID: ''
+            zomato_place_ID: '',
+            zomatoCompareID: ''
         }
     }
 
@@ -49,7 +51,7 @@ class ReviewComponent extends React.Component {
         // var name = this.props.name;
         // var address = this.props.address;
         // var rating = this.props.rating;
-        var photo_ref;
+        //var photo_ref;
         // Call for Details from Google Places API
 
         if(googleID !== undefined){
@@ -66,7 +68,8 @@ class ReviewComponent extends React.Component {
                         gpPrice: data.result.price_level,
                         gpWebsite: data.result.reviews.author_url,
                         gpUserReviews: data.result.reviews,
-                         gpPhotoReference: data.result.photos[0].photo_reference
+                        gpPhotoReference: data.result.photos[0].photo_reference,
+                        googleCompareID: googleID
                     },function() {
                          if (this.state.gpPhotoReference !== '') {
                                   //Get Image jpg
@@ -97,6 +100,7 @@ class ReviewComponent extends React.Component {
                         yelpWebsite: response.data.url,
                         yelpRating: response.data.rating,
                         yelpPrice: response.data.price,
+                        yelpCompareID: yelpID,
                         yelpImage: response.data.image_url
                         })
             }).catch(err => "No yelp Id provided");
@@ -126,11 +130,12 @@ class ReviewComponent extends React.Component {
             .then(data => {
                 this.setState({ 
                     zomatoName: data.name, 
-                    zomatoAddress: data.location.address,  
+                    zomatoAddress: data.location.address,
                     zomatoPriceRange: data.price_range,
                     zomatoWebsite: data.url,
                     zomatoRating: data.user_rating.aggregate_rating,
-                    zomatoImage: data.photos[0].photo.url
+                    zomatoImage: data.photos[0].photo.url,
+                    zomatoCompareID: zomatoID
                 })})
             .catch(err => "No zomato Id provided");
 
@@ -160,6 +165,8 @@ class ReviewComponent extends React.Component {
                         gpWebsite={this.state.gpWebsite}
                         gpUserReviews={this.state.gpUserReviews}
                         gpImage={this.state.gpImage}
+                        googleCompareID={this.state.googleCompareID}
+                        onAddToCompareClick={this.props.onAddToCompareClick}
                          />
                 </div>);
             } else if(this.state.yelpName !== ''){
@@ -173,7 +180,8 @@ class ReviewComponent extends React.Component {
                             yelpImage={this.state.yelpImage}
                             yelpUserReviews={this.state.yelpUserReviews}
                             yelpPrice={this.state.yelpPrice}
-                            onCompareClick={this.props.onCompareClick}/>
+                            yelpCompareID={this.state.yelpCompareID}
+                            onAddToCompareClick={this.props.onAddToCompareClick}/>
                     </div>);
             } else if(this.state.zomatoName !== ''){
                 return (
@@ -184,7 +192,9 @@ class ReviewComponent extends React.Component {
                             zomatoPriceRange={this.state.zomatoPriceRange}
                             zomatoUserReviews={this.state.zomatoUserReviews}
                             zomatoRating={this.state.zomatoRating}
-                            zomatoImage={this.state.zomatoImage}/>
+                            zomatoImage={this.state.zomatoImage}
+                            zomatoCompareID={this.state.zomatoCompareID}
+                            onAddToCompareClick={this.props.onAddToCompareClick}/>
                     </div>);
             } else {
                 return (<div className="App"></div>);
@@ -194,19 +204,17 @@ class ReviewComponent extends React.Component {
 }
 
 // Create ___ReviewCard components that display results from each API as a card
-const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPrice, yelpRating, yelpUserReviews, yelpImage, yelpID, onCompareClick}) =>{
+const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPrice, yelpRating, yelpUserReviews, yelpImage, yelpCompareID, onAddToCompareClick}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
+                <button className='grow f4 ph3 pv2 dib white bg-light-purple' onClick={()=> onAddToCompareClick("yelp",yelpCompareID)}>
+                            Add to Compare     
+                </button>
                 <div className="tc review-component  br3 pa3 ma2 dib bw2 shadow-5 sunflower-light mw-75 w-75">
                     <h1>
                         Yelp Review:
                     </h1>
-                    <Link className="no-decoration bg-light-purple" to ='/comparecomponent'>
-                        <button className='grow f4 ph3 pv2 dib white bg-light-purple' onClick={()=> onCompareClick("yelp", yelpID)}>
-                            Compare     
-                        </button>
-                    </Link>
                     <img src={yelpImage}></img>
                     <h3>
                         Name: {yelpName} <br />
@@ -218,9 +226,9 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
                         Individual Reviews: <br />
                         <hr/>
                     </h3>
-                    <div class = "reviewBox">
+                    <div className = "reviewBox">
                         {yelpUserReviews.map((re, i) => {
-                           return <h3 class = "review">
+                           return <h3 className = "review">
                             {yelpUserReviews[i].rating}/5 -  {yelpUserReviews[i].text} <br />
                            </h3>
                         })}
@@ -230,10 +238,13 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
         </div>
     );
 }
-const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebsite, gpUserReviews,gpImage}) =>{
+const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebsite, gpUserReviews,gpImage, googleCompareID, onAddToCompareClick}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
+            <button className='grow f4 ph3 pv2 dib white bg-light-purple' onClick={()=> onAddToCompareClick("google reviews",googleCompareID)}>
+                            Add to Compare     
+                </button>
                 <div className="tc review-component  br3 pa3 ma2 dib bw2 shadow-5 sunflower-light mw-75 w-75">
                     <h1>
                         Google Review:
@@ -261,10 +272,13 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebs
     );
 }
 
-const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoImage, zomatoWebsite, zomatoAddress, zomatoRating, zomatoUserReviews}) =>{
+const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoImage, zomatoWebsite, zomatoAddress, zomatoRating, zomatoUserReviews, zomatoCompareID, onAddToCompareClick}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
+            <button className='grow f4 ph3 pv2 dib white bg-light-purple' onClick={()=> onAddToCompareClick("zomato",zomatoCompareID)}>
+                            Add to Compare     
+            </button>
                 <div className="tc review-component  br3 pa3 ma2 dib bw2 shadow-5 sunflower-light mw-75 w-75">
                     <h1>
                         Zomato Review
