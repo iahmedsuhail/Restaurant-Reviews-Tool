@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import NavigationBar from './components/NavigationBar/NavigationBar.js';
-import Logo from './components/Logo/Logo.js';
 import SearchForm from './components/SearchForm/SearchForm.js';
 import SearchFilter from './components/SearchFilter/SearchFilter.js';
 import ReviewComponent from './components/ReviewComponent/ReviewComponent.js';
@@ -98,7 +97,6 @@ class App extends React.Component {
           params={particlesOptions}/> 
         <BrowserRouter> {/* using react-router-dom for routing */}
           <NavigationBar />  {/* for navigation through the app, always rendered */}
-          <Logo />   {/* a logo for the RestrauntReviewsTool */}
           <Switch>
             <Route path='/' 
               exact 

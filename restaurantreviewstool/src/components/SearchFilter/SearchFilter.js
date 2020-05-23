@@ -1,5 +1,4 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import {Link} from 'react-router-dom';
 import './SearchFilter.css';
 
@@ -9,7 +8,7 @@ class SearchFilter extends React.Component{
         return(
             <div className="App">
                 <h1 className="sunflower-medium">SEARCH RESULTS</h1>
-                <div style={{overflow: 'scroll', height: '400px'}}>
+                {/* <div style={{overflow: 'scroll', height: '700px'}}> */}
                 {this.props.yelpSearchresults.map((re,i) => {  
                 return (<SearchCard
                             key={i}
@@ -45,16 +44,15 @@ class SearchFilter extends React.Component{
                         />);
                     })}
                 </div>
-            </div>
+            // </div>
         );
     }
 }
 
 const SearchCard = ({source, name, address, rating, google_id, yelp_id, zomato_id, onSearchCardClick}) => {
     return(
-        <Grid container direction="column" justify="center" alignItems="center">
             <Link to='/reviewcomponent'>
-                <div className='tc search-filter br3 pa3 ma2 dib bw2 shadow-5 sunflower-light' 
+                <div className='tc grow search-filter br3 pa4 ma2 dib bw2 shadow-5 sunflower-light' 
                     onClick={() => onSearchCardClick(name, google_id, yelp_id, zomato_id)} >
                         <h1>{source}</h1>
                         <h2 >Name: {name}</h2>
@@ -62,7 +60,6 @@ const SearchCard = ({source, name, address, rating, google_id, yelp_id, zomato_i
                         <h5>Rating: {rating}</h5>
                 </div>
             </Link>  
-        </Grid> 
     );
 }
 
