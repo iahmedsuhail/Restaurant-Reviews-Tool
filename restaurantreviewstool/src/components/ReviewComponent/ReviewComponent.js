@@ -29,6 +29,7 @@ class ReviewComponent extends React.Component {
             zomatoRating: '', 
             zomatoPriceRange: '',
             zomatoWebsite: '',
+            zomatoUserReviews: [],
             zomato_place_ID: ''
         }
     }
@@ -88,7 +89,9 @@ class ReviewComponent extends React.Component {
 
 
         else if(zomatoID !== undefined){
+
             fetch(`${'https://cors-anywhere.herokuapp.com/'}https://developers.zomato.com/api/v2.1/restaurant?res_id=${zomatoID}`, {
+                mode: 'cors',
                 headers: {
                     Accept: "application/json",
                     "User-Key": "84d624178d6b4c6219f90cd5634fd956"
@@ -103,9 +106,19 @@ class ReviewComponent extends React.Component {
                     zomatoRating: data.user_rating.aggregate_rating,
                 })})
             .catch(err => "No zomato Id provided");
+
+            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://developers.zomato.com/api/v2.1/reviews?res_id=${zomatoID}`, {
+                mode: 'cors',
+                headers: {
+                    Accept: "application/json",
+                    "User-Key": "84d624178d6b4c6219f90cd5634fd956"
+                }
+            }).then(response => response.json()).then(data => {
+                this.setState({
+                    zomatoUserReviews: data.user_reviews
+                })})
+            .catch(err => "No zomato Id provided");
         }
-
-
     }
 
     render() {
@@ -137,6 +150,7 @@ class ReviewComponent extends React.Component {
                             zomatoAddress={this.state.zomatoAddress}
                             zomatoWebsite={this.state.zomatoWebsite}
                             zomatoPriceRange={this.state.zomatoPriceRange}
+                            zomatoUserReviews={this.state.zomatoUserReviews}
                             zomatoRating={this.state.zomatoRating}/>
                     </div>);
             } else {
@@ -207,11 +221,11 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpRating, gpWebsite, gpUs
     );
 }
 
-const ZomatoReviewCard = ({zomatoName, zomatoPriceRange, zomatoWebsite, zomatoAddress, zomatoRating}) =>{
+const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoWebsite, zomatoAddress, zomatoRating, zomatoUserReviews}) =>{
     return(
         <div>
             <Grid container direction="column" justify="center" alignItems="center">
-                <div className="tc review-component br3 pa3 ma2 dib bw2 shadow-5 sunflower-light">
+                <div className="tc review-component  br3 pa3 ma2 dib bw2 shadow-5 sunflower-light mw-75 w-75">
                     <h1>
                         Zomato Review
                     </h1>
@@ -221,7 +235,16 @@ const ZomatoReviewCard = ({zomatoName, zomatoPriceRange, zomatoWebsite, zomatoAd
                         Webpage:<br/><a href={zomatoWebsite}>Zomato: {zomatoName}</a><br />
                         Price: {zomatoPriceRange} <br/>
                         Rating: {zomatoRating} <br />
+                        Individual Reviews: <br />
                     </h3>
+                     <div className = "reviewBox">
+                        {zomatoUserReviews.map((re, i) => {
+                           return <h3 className = "review">
+                            {zomatoUserReviews[i].review.rating}/5 -  {zomatoUserReviews[i].review.review_text} <br />
+                           </h3>
+                        })}
+
+                     </div>
                 </div>
             </Grid>
         </div>
