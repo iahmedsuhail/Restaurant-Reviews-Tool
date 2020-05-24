@@ -51,40 +51,36 @@ class ReviewComponent extends React.Component {
         // var name = this.props.name;
         // var address = this.props.address;
         // var rating = this.props.rating;
-        //var photo_ref;
         // Call for Details from Google Places API
 
         if(googleID !== undefined){
-            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=photo,review,formatted_address,formatted_phone_number,name,rating,price_level`, {
-                mode: 'cors'
-                })
-                .then(response=> response.json())
-                .then(data => {
-                    this.setState({ 
-                        gpName: data.result.name, 
-                        gpAddress: data.result.formatted_address, 
-                        gpPhone: data.result.formatted_phone_number, 
-                        gpRating: data.result.rating,
-                        gpPrice: data.result.price_level,
-                        gpWebsite: data.result.reviews.author_url,
-                        gpUserReviews: data.result.reviews,
-                        gpPhotoReference: data.result.photos[0].photo_reference,
-                        googleCompareID: googleID
-                    },function() {
-                         if (this.state.gpPhotoReference !== '') {
-                                  //Get Image jpg
-                                  fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.state.gpPhotoReference}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw`, {
-                                  mode: 'cors'
-                                  }).then(response => response.blob())
-                                  .then(data => {
-                                          this.setState({
-                                            gpImage: URL.createObjectURL(data)
-                                  })}).catch(err => "No google photo provided");
-                              console.log(this.state.gpPhotoReference);
-                              console.log(this.state.gpImage);
-                          }
-                    }
-                )}).catch(err => "No google Id provided");
+            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=photo,review,formatted_address,formatted_phone_number,name,rating,price_level,website`, {
+            mode: 'cors'
+            })
+            .then(response=> response.json())
+            .then(data => {
+                this.setState({
+                    gpName: data.result.name,
+                    gpAddress: data.result.formatted_address,
+                    gpPhone: data.result.formatted_phone_number,
+                    gpRating: data.result.rating,
+                    gpPrice: data.result.price_level,
+                    gpWebsite: data.result.website,
+                    gpUserReviews: data.result.reviews,
+                    gpPhotoReference: data.result.photos[0].photo_reference
+                },function() {
+                     if (this.state.gpPhotoReference !== '') {
+                              //Get Image jpg
+                              fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.state.gpPhotoReference}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw`, {
+                              mode: 'cors'
+                              }).then(response => response.blob())
+                              .then(data => {
+                                      this.setState({
+                                        gpImage: URL.createObjectURL(data)
+                              })}).catch(err => "No google photo provided");
+                          console.log(this.state.gpPhotoReference);
+                          console.log(this.state.gpImage);
+                      }
                 }
         else if(yelpID !== undefined){
         axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpID}`, { 
@@ -102,7 +98,7 @@ class ReviewComponent extends React.Component {
                         yelpPrice: response.data.price,
                         yelpCompareID: yelpID,
                         yelpImage: response.data.image_url
-                        })
+
             }).catch(err => "No yelp Id provided");
 
         axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpID}/reviews`, {
@@ -128,12 +124,14 @@ class ReviewComponent extends React.Component {
                 }
             }).then(response => response.json())
             .then(data => {
+
                 this.setState({ 
                     zomatoName: data.name, 
                     zomatoAddress: data.location.address,
                     zomatoPriceRange: data.price_range,
                     zomatoWebsite: data.url,
                     zomatoRating: data.user_rating.aggregate_rating,
+
                     zomatoImage: data.photos[0].photo.url,
                     zomatoCompareID: zomatoID
                 })})
@@ -227,6 +225,7 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
                     </h3>
                     <div className = "reviewBox">
                         {yelpUserReviews.map((re, i) => {
+     
                         return <h3 key={i.toString()} className = "review">
                             {yelpUserReviews[i].rating}/5 -  {yelpUserReviews[i].text} <br />
                            </h3>
@@ -282,8 +281,7 @@ const ZomatoReviewCard = ({zomatoName, zomatoPriceRange, zomatoImage, zomatoWebs
                     <h1>
                         Zomato Review
                     </h1>
-                    <img className="mw-75 w-75" src={zomatoImage} alt=""></img>
-                    <h3>
+                    <img className="mw-75 w-75" alt="" src={zomatoImage}></img>                    <h3>
                         Name: {zomatoName} <br />
                         Address: {zomatoAddress} <br />
                         Webpage:<br/><a href={zomatoWebsite}>Link</a><br />
