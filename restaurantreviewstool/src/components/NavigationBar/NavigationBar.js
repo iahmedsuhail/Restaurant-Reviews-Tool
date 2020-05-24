@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Logo from '../Logo/Logo.js'
+import Logo from '../Logo/Logo.js';
 
 const NavigationBar = () => {
     return(
@@ -12,7 +12,7 @@ const NavigationBar = () => {
                         <p>Home</p>
                     </Link>
                     <Link className="no-underline" to='/comparecomponent'>
-                        <p>Compare</p>
+                        <p>Compare reviews</p>
                     </Link>
                 </div>
             </div>

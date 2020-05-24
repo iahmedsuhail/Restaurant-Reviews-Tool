@@ -1,10 +1,6 @@
 import React from 'react';
-import GoogleReviewCard from '../ReviewComponent/ReviewComponent.js';
-import YelpReviewCard from '../ReviewComponent/ReviewComponent.js';
-import ZomatoReviewCard from '../ReviewComponent/ReviewComponent.js';
 import { Grid } from '@material-ui/core';
 import axios from 'axios';
-
 
 class CompareComponent extends React.Component{
     constructor(props){
@@ -193,6 +189,98 @@ class CompareComponent extends React.Component{
         );
     }
     }
+}
+const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPrice, yelpRating, yelpUserReviews, yelpImage}) =>{
+    return(
+        <div>
+            <Grid container direction="column" justify="center" alignItems="center">
+                <div className="tc review-component  br3 pa3 ma2 dib bw2 shadow-5 sunflower-light mw-75 w-75">
+                    <h1>
+                        Yelp Review:
+                    </h1>
+                    <img src={yelpImage} alt=""></img>
+                    <h3>
+                        Name: {yelpName ?? "Please select a yelp review for comparison"} <br />
+                        Phone: {yelpPhone ?? ""} <br />
+                        Address: {yelpAddress ?? ""} <br />
+                        Webpage:<br/><a href= {yelpWebsite ?? ""}>Link</a><br/>
+                        Price: {yelpPrice ?? ""} <br />
+                        Rating: {yelpRating ?? ""} <br />
+                        Individual Reviews: <br />
+                        <hr/>
+                    </h3>
+                    <div className = "reviewBox">
+                        {yelpUserReviews === null ? yelpUserReviews.map((re, i) => {
+                        return <h3 key={i.toString()} className = "review">
+                            {yelpUserReviews[i].rating}/5 -  {yelpUserReviews[i].text} <br />
+                           </h3>
+                        }) : ""}
+                     </div>
+                </div>
+            </Grid>
+        </div>
+    );
+}
+const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebsite, gpUserReviews,gpImage}) =>{
+    return(
+        <div>
+            <Grid container direction="column" justify="center" alignItems="center">
+                <div className="tc review-component  br3 pa3 ma2 dib bw2 shadow-5 sunflower-light mw-75 w-75">
+                    <h1>
+                        Google Review:
+                    </h1>
+                    <img src={gpImage} alt=""></img>
+                    <h3>
+                        Name: {gpName ?? "Please select a google review for comparison"} <br />
+                        Phone: {gpPhone ?? ""} <br />
+                        Address: {gpAddress ?? ""} <br />
+                        Webpage:<br/><a href={gpWebsite ?? ""}>Link</a> <br/>
+                        Price: {gpPrice ?? ""} <br/>
+                        Rating: {gpRating ?? ""} <br />
+                        Individual Reviews: <br />
+                    </h3>
+                     <div className = "reviewBox">
+                        {gpUserReviews === null ? gpUserReviews.map((re, i) => {
+                        return <h3 key={i.toString()} className = "review">
+                            {gpUserReviews[i].rating}/5 -  {gpUserReviews[i].text} <br />
+                           </h3>
+                        }) : ""}
+                     </div>
+                </div>
+            </Grid>
+        </div>
+    );
+}
+
+const ZomatoReviewCard = ({zomatoName, zomatoPriceRange, zomatoImage, zomatoWebsite, zomatoAddress, zomatoRating, zomatoUserReviews}) =>{
+    return(
+        <div>
+            <Grid container direction="column" justify="center" alignItems="center">
+                <div className="tc review-component  br3 pa3 ma2 dib bw2 shadow-5 sunflower-light mw-75 w-75">
+                    <h1>
+                        Zomato Review  
+                    </h1>
+                    <img className="mw-75 w-75" src={zomatoImage} alt=""></img>
+                    <h3>
+                        Name: {zomatoName ?? "Please select a zomato review for comparison"} <br />
+                        Address: {zomatoAddress ?? ""} <br />
+                        Webpage:<br/><a href={zomatoWebsite ?? ""}>Link</a><br />
+                        Price: {zomatoPriceRange ?? ""} <br/>
+                        Rating: {zomatoRating ?? ""} <br />
+                        Individual Reviews: <br />
+                    </h3>
+                     <div className = "reviewBox">
+                        {zomatoUserReviews === null ? zomatoUserReviews.map((re, i) => {
+                        return <h3 key={i.toString()} className = "review">
+                            {zomatoUserReviews[i].review.rating}/5 -  {zomatoUserReviews[i].review.review_text} <br />
+                           </h3>
+                        }) : ""}
+
+                     </div>
+                </div>
+            </Grid>
+        </div>
+    );
 }
 
 export default CompareComponent;

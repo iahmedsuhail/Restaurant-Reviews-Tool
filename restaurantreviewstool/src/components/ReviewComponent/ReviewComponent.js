@@ -227,7 +227,7 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
                     </h3>
                     <div className = "reviewBox">
                         {yelpUserReviews.map((re, i) => {
-                           return <h3 className = "review">
+                        return <h3 key={i.toString()} className = "review">
                             {yelpUserReviews[i].rating}/5 -  {yelpUserReviews[i].text} <br />
                            </h3>
                         })}
@@ -260,7 +260,7 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebs
                     </h3>
                      <div className = "reviewBox">
                         {gpUserReviews.map((re, i) => {
-                           return <h3 className = "review">
+                        return <h3 key={i.toString()} className = "review">
                             {gpUserReviews[i].rating}/5 -  {gpUserReviews[i].text} <br />
                            </h3>
                         })}
@@ -293,7 +293,7 @@ const ZomatoReviewCard = ({zomatoName, zomatoPriceRange, zomatoImage, zomatoWebs
                     </h3>
                      <div className = "reviewBox">
                         {zomatoUserReviews.map((re, i) => {
-                           return <h3 className = "review">
+                        return <h3 key={i.toString()} className = "review">
                             {zomatoUserReviews[i].review.rating}/5 -  {zomatoUserReviews[i].review.review_text} <br />
                            </h3>
                         })}
