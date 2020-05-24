@@ -124,13 +124,14 @@ class App extends React.Component {
           <Switch>
             <Route path='/' 
               exact 
-              render={(props) => <SearchForm {...props} searchfield={this.state.searchfield} onInputChange={this.onInputChange} onSearchClick={this.onSearchClick} /> } 
+              render={(props) => <SearchForm {...props} 
+                                  searchfield={this.state.searchfield} 
+                                  onInputChange={this.onInputChange} 
+                                  onSearchClick={this.onSearchClick} /> } 
             /> 
-            {/* Changing to render so the component wont re-render everytime key is pressed */}
 
             <Route 
               path='/searchfilter' 
-
               render={(props) => <SearchFilter {...props}
                                   googleSearchresults={this.state.googleSearchresults}
                                   yelpSearchresults={this.state.yelpSearchresults}

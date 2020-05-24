@@ -21,6 +21,7 @@ class CompareComponent extends React.Component{
             yelpPhone: '',
             yelpWebsite: '',
             yelpImage: '',
+            yelpUserReviews: [],
             yelpRating: '',
             yelpPrice: '',
 
@@ -39,7 +40,6 @@ class CompareComponent extends React.Component{
         var yelpCompareId = this.props.yelpCompareId;
         var zomatoCompareId = this.props.zomatoCompareId;
 
-        if(googleCompareId !== undefined){
             fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleCompareId}&type=restaurant&fields=photo,review,formatted_address,formatted_phone_number,name,rating,price_level`, {
                 mode: 'cors'
                 })
@@ -69,8 +69,6 @@ class CompareComponent extends React.Component{
                           }
                     }
                 )}).catch(err => "No google Id provided");
-                }
-        else if(yelpCompareId !== undefined){
         axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpCompareId}`, { 
                 headers : {
                 Authorization : `Bearer RCxaGe1TDhf1kSiIKQW9Wb9eBfhYtANwDCmKKAO5SdGMYXKQQCXu5LamK9eM8fNZp27OvCZZYjNDGVn2bucWGULytCmdxFZgXah6mB2cAl161Gj14qy_MV4R-MC0XnYx`,
@@ -98,10 +96,7 @@ class CompareComponent extends React.Component{
                         yelpUserReviews: response.data.reviews
                         })
             }).catch(err => "No yelp Id provided");
-        }
 
-
-        else if(zomatoCompareId !== undefined){
             fetch(`${'https://cors-anywhere.herokuapp.com/'}https://developers.zomato.com/api/v2.1/restaurant?res_id=${zomatoCompareId}`, {
                 mode: 'cors',
                 headers: {
@@ -132,7 +127,6 @@ class CompareComponent extends React.Component{
                 })})
             .catch(err => "No zomato Id provided");
         }
-    }
 
     render() {
         if(this.state.gpName === "" && this.state.yelpName === "" && this.state.zomatoName === ""){
@@ -147,6 +141,8 @@ class CompareComponent extends React.Component{
                 <div style={{'display' : 'flex', 'flexDirection' : 'coloumn'}}>
                 <Grid container direction="column">
                 <Grid style={{'gridColumn': '1/3'}} >
+                {this.state.gpName !== "" ?
+                <div> 
                 <h2>Google</h2>
                     <GoogleReviewCard gpName={this.state.gpName ?? ""} 
                         gpPhone={this.state.gpPhone ?? ""}
@@ -157,10 +153,14 @@ class CompareComponent extends React.Component{
                         gpUserReviews={this.state.gpUserReviews ?? ""}
                         gpImage={this.state.gpImage ?? ""}
                          />
+                 </div>
+                : <div></div>}
                 </Grid>
                 </Grid>
                 <Grid container direction="column">
                 <Grid style={{'gridColumn': '1/3'}}>
+                {this.state.yelpName !== "" ?
+                <div> 
                 <h2>Yelp</h2>    
                         <YelpReviewCard yelpName={this.state.yelpName ?? ""} 
                             yelpPhone={this.state.yelpPhone ?? ""}
@@ -170,10 +170,14 @@ class CompareComponent extends React.Component{
                             yelpImage={this.state.yelpImage ?? ""}
                             yelpUserReviews={this.state.yelpUserReviews ?? ""}
                             yelpPrice={this.state.yelpPrice ?? ""}/>
+                </div>
+                : <div></div>}
                 </Grid>
                 </Grid>
                 <Grid container direction="column">
                 <Grid style={{'gridColumn': '1/3'}}>
+                {this.state.zomatoName !== "" ?
+                <div> 
                 <h2>Zomato</h2>
                         <ZomatoReviewCard zomatoName={this.state.zomatoName ?? ""}
                             zomatoAddress={this.state.zomatoAddress ?? ""}
@@ -182,6 +186,8 @@ class CompareComponent extends React.Component{
                             zomatoUserReviews={this.state.zomatoUserReviews ?? ""}
                             zomatoRating={this.state.zomatoRating ?? ""}
                             zomatoImage={this.state.zomatoImage ?? ""}/>
+                </div>
+                : <div></div>}
                    </Grid>
                 </Grid>
             </div>
@@ -210,7 +216,7 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
                         <hr/>
                     </h3>
                     <div className = "reviewBox">
-                        {yelpUserReviews === null ? yelpUserReviews.map((re, i) => {
+                        {yelpUserReviews != null ? yelpUserReviews.map((re, i) => {
                         return <h3 key={i.toString()} className = "review">
                             {yelpUserReviews[i].rating}/5 -  {yelpUserReviews[i].text} <br />
                            </h3>
@@ -240,7 +246,7 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebs
                         Individual Reviews: <br />
                     </h3>
                      <div className = "reviewBox">
-                        {gpUserReviews === null ? gpUserReviews.map((re, i) => {
+                        {gpUserReviews != null ? gpUserReviews.map((re, i) => {
                         return <h3 key={i.toString()} className = "review">
                             {gpUserReviews[i].rating}/5 -  {gpUserReviews[i].text} <br />
                            </h3>
@@ -270,7 +276,7 @@ const ZomatoReviewCard = ({zomatoName, zomatoPriceRange, zomatoImage, zomatoWebs
                         Individual Reviews: <br />
                     </h3>
                      <div className = "reviewBox">
-                        {zomatoUserReviews === null ? zomatoUserReviews.map((re, i) => {
+                        {zomatoUserReviews != null ? zomatoUserReviews.map((re, i) => {
                         return <h3 key={i.toString()} className = "review">
                             {zomatoUserReviews[i].review.rating}/5 -  {zomatoUserReviews[i].review.review_text} <br />
                            </h3>
