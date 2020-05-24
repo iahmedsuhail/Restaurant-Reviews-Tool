@@ -1,68 +1,46 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# RestaurantReviewsTool
 
-## Available Scripts
+- Github repository for SoftEng 750/CompSci 732 
+- Project group 26 
+    - Aleksander Konnerup 
+    - Ahmed Suhail 
+    - Cheuk Hei Jason Mak
+    - Joshua Rosairo.
+  
+  - A view of the assigned tasks and the allocation to different members can be seen on our Scrum-board: https://trello.com/b/Z5ac7jJG
 
-In the project directory, you can run:
+# Project topic - Web Service Composition:
+Our web app aims to collate and display restaurant reviews from multiple review sources. For the user, this means facilitating easier judgment of what restaurant to eat at based on popular community opinions and metrics important to them (i.e. price). The motivation being that ideally, by using multiple review sources, a user saves time from having to navigate each individual site, and is more readily given access to a holistic view of a chosen restaurant.
 
-### `npm start`
+# Implemented User stories:
+- Must Have:
+    - As a user, I want the restaurant reviews to be from different online sources so that I can better select what restaurant is best        suited to me.
+    - As a user, I want to be able to view all reviews in one place, regardless of the online source.
+    - As a user, I want to be able to search for a specific restaurant name, so that I can only get online reviews about a given              restaurant. 
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Should have
+   - As a user, I want to be able to see the price range of the restaurant.
+   - As a user, I want to view restaurants based on my location, so that I can narrow restaurants down to somewhere close to me.
+   - As a user, I want to be able to view images of the food, restaurant or menu.
+   - As a user, I want to be able to view a restaurant’s contact details.
+   - As a user, I want to be able to access a the review source so that I can easily explore for further details.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Could have
+  - As a user, I want to be able to compare reviews between two restaurants so that I can more easily judge which one best suits me. 
 
-### `npm test`
+# How to run the website:
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Clone down this repository. You will need node and npm installed globally on your machine.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Installation:
+```
+npm install
+```
+To Start Server:
+```
+npm start
+```
+To Visit App:
+```
+localhost:3000/
+```
