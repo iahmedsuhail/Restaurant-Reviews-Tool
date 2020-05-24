@@ -2,11 +2,10 @@
 
 Github repository for SoftEng 750/CompSci 732 - Project group 26 - Aleksander Konnerup, Ahmed Suhail, Cheuk Hei Jason Mak, Joshua Rosairo.
 
-Our project topic was:
-Web Service Composition: 
-Our web app aims to collate and display restaurant reviews from multiple review sources. For the user, this means facilitating easier judgment of what restaurant to eat at based on popular community opinions and metrics important to them (i.e. price). The motivation being that ideally, by using multiple review sources, a user saves time from having to navigate each individual site, and is more readily given access to a holistic view of a chosen restaurant.
+# Project topic:
+Web Service Composition: Our web app aims to collate and display restaurant reviews from multiple review sources. For the user, this means facilitating easier judgment of what restaurant to eat at based on popular community opinions and metrics important to them (i.e. price). The motivation being that ideally, by using multiple review sources, a user saves time from having to navigate each individual site, and is more readily given access to a holistic view of a chosen restaurant.
 
-With this topic as basis the implemented user stories are:
+# Implemented User stories:
 Must Have:
 - As a user, I want the restaurant reviews to be from different online sources so that I can better select what restaurant is best suited to me.
 - As a user, I want to be able to view all reviews in one place, regardless of the online source.
