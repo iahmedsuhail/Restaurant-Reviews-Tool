@@ -69,6 +69,7 @@ class CompareComponent extends React.Component{
                           }
                     }
                 )}).catch(err => "No google Id provided");
+                
         axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpCompareId}`, { 
                 headers : {
                 Authorization : `Bearer RCxaGe1TDhf1kSiIKQW9Wb9eBfhYtANwDCmKKAO5SdGMYXKQQCXu5LamK9eM8fNZp27OvCZZYjNDGVn2bucWGULytCmdxFZgXah6mB2cAl161Gj14qy_MV4R-MC0XnYx`,

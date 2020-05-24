@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-
 import Logo from '../Logo/Logo.js';
 
 const NavigationBar = () => {
@@ -10,7 +9,6 @@ const NavigationBar = () => {
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
             <Logo/> {/* a logo for the RestrauntReviewsTool */}
 
-            <div style={{display: 'flex'}}>
                 <div className='f3 dim black pa2 pointer'>
                     <Link className="no-underline" onClick={() => history.goBack()}>
                         <p>Back</p>
@@ -25,7 +23,6 @@ const NavigationBar = () => {
                         <p>Compare reviews</p>
                     </Link>
                 </div>
-            </div>
             
         </div>
     );

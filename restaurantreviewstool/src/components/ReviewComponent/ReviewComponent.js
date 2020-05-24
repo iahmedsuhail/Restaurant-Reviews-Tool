@@ -67,6 +67,7 @@ class ReviewComponent extends React.Component {
                     gpPrice: data.result.price_level,
                     gpWebsite: data.result.website,
                     gpUserReviews: data.result.reviews,
+                    googleCompareID: googleID,
                     gpPhotoReference: data.result.photos[0].photo_reference
                 },function() {
                      if (this.state.gpPhotoReference !== '') {
@@ -81,7 +82,7 @@ class ReviewComponent extends React.Component {
                           console.log(this.state.gpPhotoReference);
                           console.log(this.state.gpImage);
                       }
-                }
+                })});}
         else if(yelpID !== undefined){
         axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpID}`, { 
                 headers : {
@@ -98,8 +99,7 @@ class ReviewComponent extends React.Component {
                         yelpPrice: response.data.price,
                         yelpCompareID: yelpID,
                         yelpImage: response.data.image_url
-
-            }).catch(err => "No yelp Id provided");
+                    })}).catch(err => "No yelp Id provided");
 
         axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/${yelpID}/reviews`, {
                         headers : {
@@ -112,7 +112,6 @@ class ReviewComponent extends React.Component {
                         })
             }).catch(err => "No yelp Id provided");
         }
-
 
         else if(zomatoID !== undefined){
 
