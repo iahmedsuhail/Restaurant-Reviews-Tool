@@ -1,6 +1,11 @@
 # RestaurantReviewsTool
 
-Github repository for SoftEng 750/CompSci 732 - Project group 26 - Aleksander Konnerup, Ahmed Suhail, Cheuk Hei Jason Mak, Joshua Rosairo.
+- Github repository for SoftEng 750/CompSci 732 
+- Project group 26 
+- Aleksander Konnerup 
+- Ahmed Suhail 
+- Cheuk Hei Jason Mak
+- Joshua Rosairo.
 
 # Project topic:
 Web Service Composition: Our web app aims to collate and display restaurant reviews from multiple review sources. For the user, this means facilitating easier judgment of what restaurant to eat at based on popular community opinions and metrics important to them (i.e. price). The motivation being that ideally, by using multiple review sources, a user saves time from having to navigate each individual site, and is more readily given access to a holistic view of a chosen restaurant.
