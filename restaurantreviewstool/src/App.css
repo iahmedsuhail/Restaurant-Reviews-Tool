@@ -15,3 +15,22 @@
   left: 0;
   z-index: -1;
 }
+
+.popup {  
+  position: fixed;
+  color: yellow;
+  text-align: center;
+  font-family: Sun;
+  border: 6px transparent transparent transparent;
+  border-radius: 25px;
+  border-color: darkblue;
+  width: 30%;  
+  height: 30%;  
+  top: 0;  
+  left: 0;  
+  right: 0;  
+  bottom: 0;  
+  margin: auto;  
+  background-color:2a2a72;
+  background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
+} 

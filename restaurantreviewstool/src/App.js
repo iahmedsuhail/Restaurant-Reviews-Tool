@@ -5,6 +5,8 @@ import NavigationBar from './components/NavigationBar/NavigationBar.js';
 import SearchForm from './components/SearchForm/SearchForm.js';
 import SearchFilter from './components/SearchFilter/SearchFilter.js';
 import ReviewComponent from './components/ReviewComponent/ReviewComponent.js';
+import CompareComponent from './components/CompareComponent/CompareComponent.js';
+import Popup from './components/Popup.js';
 import Particles from 'react-particles-js';
 import axios from 'axios';
 
@@ -32,22 +34,24 @@ class App extends React.Component {
       yelpReviewID: '', 
       zomatoSearchresults: [], 
       zomatoReviewID: '',
-      latitude: -36.848461,
+
+      googleCompareId: '',
+      zomatoCompareId: '',
+      yelpCompareId: '',
+      showPopup: false,      latitude: -36.848461,
       longitude: 174.763336,
-      userCity: "Auckland"
-    }
+      userCity: "Auckland"    }
     
     this.onInputChange = this.onInputChange.bind(this);
     this.onSearchClick = this.onSearchClick.bind(this);
 
     this.onSearchCardClick = this.onSearchCardClick.bind(this);
-
-    this.getCity = this.getCity.bind(this);
-
-    if (navigator.geolocation) {
+    this.onAddToCompareClick = this.onAddToCompareClick.bind(this);
+    this.togglePopup = this.togglePopup.bind(this);
+	this.getCity = this.getCity.bind(this);
+ if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.getCity);
-    }
-  }
+    }  }
 
   onInputChange(event) {
     this.setState({searchfield: event.target.value});
@@ -56,7 +60,7 @@ class App extends React.Component {
 
   onSearchClick() {
     fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/textsearch/json?query=${this.state.searchfield}&location=${this.state.latitude},${this.state.longitude}&radius=10000&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&type=restaurant`)
-      .then(response=> response.json())
+		.then(response=> response.json())
       .then(data => {this.setState({ googleSearchresults: data.results})})
       .then(results => {console.log(this.state.googleSearchresults.length + " results returned from google (logged in state update)")});
 
@@ -66,22 +70,23 @@ class App extends React.Component {
         'X-Requested-With': 'XMLHttpRequest'
     },
     params: {
+
       location: this.state.userCity,
-      categories: "restaurant"
+
     }})
       .then(response => {this.setState({yelpSearchresults: response.data.businesses});
             console.log(response.data.total + " results returned from yelp");})
       .catch(err => {console.log("Error in Yelp Api Call" + err)});
     
       
-    fetch(`${'https://cors-anywhere.herokuapp.com/'}https://developers.zomato.com/api/v2.1/search?q=${this.state.searchfield}&count=10&lat=${this.state.latitude}&lon=${this.state.longitude}&radius=100000`, {
+   	fetch(`${'https://cors-anywhere.herokuapp.com/'}https://developers.zomato.com/api/v2.1/search?q=${this.state.searchfield}&count=10&lat=${this.state.latitude}&lon=${this.state.longitude}&radius=100000`, {
       headers: {
       Accept: "application/json",
       "User-Key": "84d624178d6b4c6219f90cd5634fd956"
       }
     }).then(response => response.json())
     .then(data => {this.setState({ zomatoSearchresults: data.restaurants})})
-    .then(results => {console.log(this.state.zomatoSearchresults)});
+    .then(results => {console.log(this.state.zomatoSearchresults)})
   }
 
   getCity(position) {
@@ -104,6 +109,24 @@ class App extends React.Component {
     });
   }
 
+  onAddToCompareClick(source, id) {
+    if(source === "yelp"){
+      this.setState({yelpCompareId: id});
+      this.togglePopup();
+    } else if(source === "google reviews") {
+      this.setState({googleCompareId: id});
+      this.togglePopup();
+    } else if(source === "zomato"){
+    this.setState({zomatoCompareId: id});
+    this.togglePopup();
+    }
+  }
+
+  togglePopup() {
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
+  }
 
   render(){
     return (
@@ -116,13 +139,15 @@ class App extends React.Component {
           <Switch>
             <Route path='/' 
               exact 
-              render={(props) => <SearchForm {...props} searchfield={this.state.searchfield} onInputChange={this.onInputChange} onSearchClick={this.onSearchClick} /> } 
+              render={(props) => <SearchForm {...props} 
+                                  searchfield={this.state.searchfield} 
+                                  onInputChange={this.onInputChange} 
+                                  onSearchClick={this.onSearchClick} /> } 
             /> 
-            {/* Changing to render so the component wont re-render everytime key is pressed */}
+
 
             <Route 
               path='/searchfilter' 
-
               render={(props) => <SearchFilter {...props}
                                   googleSearchresults={this.state.googleSearchresults}
                                   yelpSearchresults={this.state.yelpSearchresults}
@@ -135,12 +160,23 @@ class App extends React.Component {
               render={(props) => <ReviewComponent {...props} 
                                   google_place_ID={this.state.googleReviewID} 
                                   yelp_place_ID={this.state.yelpReviewID}
-                                  zomato_place_ID={this.state.zomatoReviewID} />}
+                                  zomato_place_ID={this.state.zomatoReviewID}
+                                  onAddToCompareClick={this.onAddToCompareClick} />}
               /> 
 
+            <Route 
+              path='/comparecomponent'
+              render={(props) => <CompareComponent {...props}
+                                  yelpCompareId={this.state.yelpCompareId}
+                                  googleCompareId={this.state.googleCompareId}
+                                  zomatoCompareId={this.state.zomatoCompareId}
+                                />}
+            />
           </Switch>
         </BrowserRouter>
 
+        {this.state.showPopup ? <Popup closePopup={this.togglePopup.bind(this)}  />  : null}
+            
       </div>
     );
   }
