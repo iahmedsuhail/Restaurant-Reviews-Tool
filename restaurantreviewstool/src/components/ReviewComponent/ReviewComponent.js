@@ -72,7 +72,7 @@ class ReviewComponent extends React.Component {
                 },function() {
                      if (this.state.gpPhotoReference !== '') {
                               //Get Image jpg
-                              fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${this.state.gpPhotoReference}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw`, {
+                              fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/photo?photoreference=${this.state.gpPhotoReference}&key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw`, {
                               mode: 'cors'
                               }).then(response => response.blob())
                               .then(data => {
