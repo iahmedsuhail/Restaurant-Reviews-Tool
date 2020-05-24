@@ -13,11 +13,11 @@ Must Have:
 
 Should have
 - As a user, I want to be able to see the price range of the restaurant.
-Is this implemented? - As a user, I want to be able to view and sort rating data so that I can better visualize the information that is important to me.
-Is this implemented? - As a user, I want to view restaurants based on my location, so that I can narrow restaurants down to somewhere close to me.
+- Is this implemented? - As a user, I want to be able to view and sort rating data so that I can better visualize the information that is important to me.
+- Is this implemented? - As a user, I want to view restaurants based on my location, so that I can narrow restaurants down to somewhere close to me.
 - As a user, I want to be able to view images of the food, restaurant or menu.
 - As a user, I want to be able to view a restaurant’s contact details.
-Should we change this? - As a user, I want to be able to access a restaurant’s webpage so that I can easily explore for further details.
+- Should we change this? - As a user, I want to be able to access a restaurant’s webpage so that I can easily explore for further details.
 
 Could have
 - As a user, I want to be able to compare reviews between two restaurants so that I can more easily judge which one best suits me. 
