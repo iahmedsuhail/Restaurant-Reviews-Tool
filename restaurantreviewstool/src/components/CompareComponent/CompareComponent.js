@@ -132,8 +132,8 @@ class CompareComponent extends React.Component{
     render() {
         if(this.state.gpName === "" && this.state.yelpName === "" && this.state.zomatoName === ""){
             return(<div className="App">
-                <h1 style={{'color' : 'red'}}>NO REVIEWS ADDED</h1>
-                <h3 style={{'color' : 'red'}}>Please select 1 - 3 reviews for comparison, and access this page again</h3>
+                <h1 >NO REVIEWS ADDED</h1>
+                <h3 >Please select 1 - 3 reviews for comparison, and access this page again</h3>
             </div>);
         }else {
             return (

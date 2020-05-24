@@ -12,14 +12,15 @@ const NavigationBar = () => {
             <div className='f3 dim black pa4 items-end'>
                 <div className="pa3 measure sunflower-light black pointer" onClick={() => history.goBack()}>
                     Back
+                </div>
                 <Link className="no-underline solid pa4 black" to='/'>
+                
                     Home
                 </Link>
                 <Link className="no-underline black" to='/comparecomponent'>
                     Compare Reviews
                 </Link>
                 </div>
-            </div>
         </div>
     );
 }
