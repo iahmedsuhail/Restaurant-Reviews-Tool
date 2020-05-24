@@ -49,11 +49,11 @@ class ReviewComponent extends React.Component {
         // var name = this.props.name;
         // var address = this.props.address;
         // var rating = this.props.rating;
-        var photo_ref;
+        // var photo_ref;
         // Call for Details from Google Places API
 
         if(googleID !== undefined){
-            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=photo,review,formatted_address,formatted_phone_number,name,rating,price_level`, {
+            fetch(`${'https://cors-anywhere.herokuapp.com/'}https://maps.googleapis.com/maps/api/place/details/json?key=AIzaSyB4O1O9YEnEd8WnQ3afnSHuvDpx7vsycMw&place_id=${googleID}&type=restaurant&fields=photo,review,formatted_address,formatted_phone_number,name,rating,price_level,website`, {
             mode: 'cors'
             })
             .then(response=> response.json())
@@ -64,7 +64,7 @@ class ReviewComponent extends React.Component {
                     gpPhone: data.result.formatted_phone_number,
                     gpRating: data.result.rating,
                     gpPrice: data.result.price_level,
-                    gpWebsite: data.result.reviews.author_url,
+                    gpWebsite: data.result.website,
                     gpUserReviews: data.result.reviews,
                     gpPhotoReference: data.result.photos[0].photo_reference
                 },function() {
@@ -192,7 +192,6 @@ class ReviewComponent extends React.Component {
             } else {
                 return (<div className="App"></div>);
             }
-        {/* Display components here, that you create below */}
     }
 }
 
@@ -205,7 +204,7 @@ const YelpReviewCard = ({yelpName, yelpPhone, yelpAddress, yelpWebsite, yelpPric
                     <h1>
                         Yelp Review:
                     </h1>
-                    <img src={yelpImage}></img>
+                    <img src={yelpImage} alt="Yelp"></img>
                     <h3>
                         Name: {yelpName} <br />
                         Phone: {yelpPhone} <br />
@@ -236,7 +235,7 @@ const GoogleReviewCard = ({gpName, gpPhone, gpAddress, gpPrice, gpRating, gpWebs
                     <h1>
                         Google Review:
                     </h1>
-                    <img src={gpImage}></img>
+                    <img src={gpImage} alt="Google"></img>
                     <h3>
                         Name: {gpName} <br />
                         Phone: {gpPhone} <br />
@@ -267,7 +266,7 @@ const ZomatoReviewCard = ({zomatoName, zomatoPhone, zomatoPriceRange, zomatoWebs
                     <h1>
                         Zomato Review
                     </h1>
-                    <img className="mw-75 w-75" src={zomatoImage}></img>
+                    <img className="mw-75 w-75" src={zomatoImage} alt="Zomato"></img>
                     <h3>
                         Name: {zomatoName} <br />
                         Address: {zomatoAddress} <br />

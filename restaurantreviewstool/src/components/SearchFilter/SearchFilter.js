@@ -11,7 +11,7 @@ class SearchFilter extends React.Component{
                 {/* <div style={{overflow: 'scroll', height: '700px'}}> */}
                 <div style={{'display' : 'flex', 'flexDirection' : 'coloumn'}}>
                 <Grid container direction="column">
-                <Grid style={{'grid-column': '1/3'}} >
+                <Grid style={{'gridColumn': '1/3'}} >
                 <h2>Yelp</h2>                {this.props.yelpSearchresults.map((re,i) => {  
                 return (<SearchCard
                             key={i}
@@ -26,7 +26,7 @@ class SearchFilter extends React.Component{
                 })}</Grid>
                 </Grid>
                 <Grid container direction="column">
-                <Grid style={{'grid-column': '1/3'}}>
+                <Grid style={{'gridColumn': '1/3'}}>
                 <h2>Google</h2>    
                 {this.props.googleSearchresults.map((re, i) => {
                     return(<SearchCard 
@@ -43,7 +43,7 @@ class SearchFilter extends React.Component{
                 </Grid>
                 </Grid>
                 <Grid container direction="column">
-                <Grid style={{'grid-column': '1/3'}}>
+                <Grid style={{'gridColumn': '1/3'}}>
                 <h2>Zomato</h2>
                 {this.props.zomatoSearchresults.map((re, i) => {
                     return(<SearchCard 
