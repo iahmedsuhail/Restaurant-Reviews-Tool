@@ -64,15 +64,10 @@ class App extends React.Component {
       .then(data => {this.setState({ googleSearchresults: data.results})})
       .then(results => {console.log(this.state.googleSearchresults.length + " results returned from google (logged in state update)")});
 
-    axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search?term=${this.state.searchfield}`, { 
+    axios.get(`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/search?term=${this.state.searchfield}&location=${this.state.userCity}`, { 
       headers : {
         Authorization : `Bearer RCxaGe1TDhf1kSiIKQW9Wb9eBfhYtANwDCmKKAO5SdGMYXKQQCXu5LamK9eM8fNZp27OvCZZYjNDGVn2bucWGULytCmdxFZgXah6mB2cAl161Gj14qy_MV4R-MC0XnYx`,
         'X-Requested-With': 'XMLHttpRequest'
-    },
-    params: {
-
-      location: this.state.userCity,
-
     }})
       .then(response => {this.setState({yelpSearchresults: response.data.businesses});
             console.log(response.data.total + " results returned from yelp");})

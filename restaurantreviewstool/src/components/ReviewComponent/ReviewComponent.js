@@ -114,7 +114,6 @@ class ReviewComponent extends React.Component {
         }
 
         else if(zomatoID !== undefined){
-
             fetch(`${'https://cors-anywhere.herokuapp.com/'}https://developers.zomato.com/api/v2.1/restaurant?res_id=${zomatoID}`, {
                 mode: 'cors',
                 headers: {
@@ -123,7 +122,6 @@ class ReviewComponent extends React.Component {
                 }
             }).then(response => response.json())
             .then(data => {
-
                 this.setState({ 
                     zomatoName: data.name, 
                     zomatoAddress: data.location.address,
@@ -131,11 +129,11 @@ class ReviewComponent extends React.Component {
                     zomatoWebsite: data.url,
                     zomatoRating: data.user_rating.aggregate_rating,
 
-                    zomatoImage: data.photos[0].photo.url,
+                    zomatoImage: data.photos_url,
                     zomatoCompareID: zomatoID
-                })})
+                })
+            })
             .catch(err => "No zomato Id provided");
-
             fetch(`${'https://cors-anywhere.herokuapp.com/'}https://developers.zomato.com/api/v2.1/reviews?res_id=${zomatoID}`, {
                 mode: 'cors',
                 headers: {
@@ -280,7 +278,7 @@ const ZomatoReviewCard = ({zomatoName, zomatoPriceRange, zomatoImage, zomatoWebs
                     <h1>
                         Zomato Review
                     </h1>
-                    <img className="mw-75 w-75" alt="" src={zomatoImage}></img>                    <h3>
+                    <img className="mw-75 w-75" src={zomatoImage} alt="" ></img>                    <h3>
                         Name: {zomatoName} <br />
                         Address: {zomatoAddress} <br />
                         Webpage:<br/><a href={zomatoWebsite}>Link</a><br />

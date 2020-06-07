@@ -112,7 +112,7 @@ class CompareComponent extends React.Component{
                     zomatoPriceRange: data.price_range,
                     zomatoWebsite: data.url,
                     zomatoRating: data.user_rating.aggregate_rating,
-                    zomatoImage: data.photos[0].photo.url,
+                    zomatoImage: data.photos_url,
                 })})
             .catch(err => "No zomato Id provided");
 
