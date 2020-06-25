@@ -8,6 +8,7 @@ import ReviewComponent from './components/ReviewComponent/ReviewComponent.js';
 import CompareComponent from './components/CompareComponent/CompareComponent.js';
 import Popup from './components/Popup.js';
 import Particles from 'react-particles-js';
+import Logo from './components/Logo/Logo';
 import axios from 'axios';
 
 const particlesOptions = {
@@ -130,7 +131,10 @@ class App extends React.Component {
         <Particles className='particles'
           params={particlesOptions}/> 
         <BrowserRouter> {/* using react-router-dom for routing */}
-          <NavigationBar />  {/* for navigation through the app, always rendered */}
+          <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+            <NavigationBar />  {/* for navigation through the app, always rendered */}
+          </div>
+          <Logo />
           <Switch>
             <Route path='/' 
               exact 
