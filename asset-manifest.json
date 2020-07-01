@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/RestaurantReviewsTool/static/css/main.629064fb.chunk.css",
+    "main.js": "/RestaurantReviewsTool/static/js/main.f8a9a06d.chunk.js",
+    "main.js.map": "/RestaurantReviewsTool/static/js/main.f8a9a06d.chunk.js.map",
+    "runtime-main.js": "/RestaurantReviewsTool/static/js/runtime-main.b876752f.js",
+    "runtime-main.js.map": "/RestaurantReviewsTool/static/js/runtime-main.b876752f.js.map",
+    "static/css/2.3b6f1bda.chunk.css": "/RestaurantReviewsTool/static/css/2.3b6f1bda.chunk.css",
+    "static/js/2.5ed425fc.chunk.js": "/RestaurantReviewsTool/static/js/2.5ed425fc.chunk.js",
+    "static/js/2.5ed425fc.chunk.js.map": "/RestaurantReviewsTool/static/js/2.5ed425fc.chunk.js.map",
+    "index.html": "/RestaurantReviewsTool/index.html",
+    "precache-manifest.072b68fd2d705a5f0c77e6573860a3b4.js": "/RestaurantReviewsTool/precache-manifest.072b68fd2d705a5f0c77e6573860a3b4.js",
+    "service-worker.js": "/RestaurantReviewsTool/service-worker.js",
+    "static/css/2.3b6f1bda.chunk.css.map": "/RestaurantReviewsTool/static/css/2.3b6f1bda.chunk.css.map",
+    "static/css/main.629064fb.chunk.css.map": "/RestaurantReviewsTool/static/css/main.629064fb.chunk.css.map",
+    "static/js/2.5ed425fc.chunk.js.LICENSE.txt": "/RestaurantReviewsTool/static/js/2.5ed425fc.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/RestaurantReviewsTool/static/media/Sunflower-Medium.c30ae2b3.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b876752f.js",
+    "static/css/2.3b6f1bda.chunk.css",
+    "static/js/2.5ed425fc.chunk.js",
+    "static/css/main.629064fb.chunk.css",
+    "static/js/main.f8a9a06d.chunk.js"
+  ]
+}
