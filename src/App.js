@@ -39,7 +39,8 @@ class App extends React.Component {
       googleCompareId: '',
       zomatoCompareId: '',
       yelpCompareId: '',
-      showPopup: false,      latitude: -36.848461,
+      showPopup: false,
+      latitude: -36.848461,
       longitude: 174.763336,
       userCity: "Auckland"    }
     
@@ -130,7 +131,7 @@ class App extends React.Component {
       <div className="App">
         <Particles className='particles'
           params={particlesOptions}/> 
-        <BrowserRouter> {/* using react-router-dom for routing */}
+        <BrowserRouter basename={process.env.PUBLIC_URL}> {/* using react-router-dom for routing */}
           <div style={{display: 'flex', justifyContent: 'flex-end'}}>
             <NavigationBar />  {/* for navigation through the app, always rendered */}
           </div>

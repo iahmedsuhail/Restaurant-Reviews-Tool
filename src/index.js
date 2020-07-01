@@ -7,9 +7,9 @@ import 'tachyons';
 
 
 ReactDOM.render(
-  //<React.StrictMode>
-    <App />,
-  //</React.StrictMode>,
+  <Router basename={process.env.PUBLIC_URL}>
+    <App />
+  </Router>,
   document.getElementById('root')
 );
 
