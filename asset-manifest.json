@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/RestaurantReviewsTool/static/css/main.fdf49f43.chunk.css",
-    "main.js": "/RestaurantReviewsTool/static/js/main.930b96d0.chunk.js",
-    "main.js.map": "/RestaurantReviewsTool/static/js/main.930b96d0.chunk.js.map",
-    "runtime-main.js": "/RestaurantReviewsTool/static/js/runtime-main.b876752f.js",
-    "runtime-main.js.map": "/RestaurantReviewsTool/static/js/runtime-main.b876752f.js.map",
-    "static/css/2.3b6f1bda.chunk.css": "/RestaurantReviewsTool/static/css/2.3b6f1bda.chunk.css",
-    "static/js/2.ce42cd47.chunk.js": "/RestaurantReviewsTool/static/js/2.ce42cd47.chunk.js",
-    "static/js/2.ce42cd47.chunk.js.map": "/RestaurantReviewsTool/static/js/2.ce42cd47.chunk.js.map",
-    "index.html": "/RestaurantReviewsTool/index.html",
-    "precache-manifest.98e74e8ed9665ce4442996b585aaa468.js": "/RestaurantReviewsTool/precache-manifest.98e74e8ed9665ce4442996b585aaa468.js",
-    "service-worker.js": "/RestaurantReviewsTool/service-worker.js",
-    "static/css/2.3b6f1bda.chunk.css.map": "/RestaurantReviewsTool/static/css/2.3b6f1bda.chunk.css.map",
-    "static/css/main.fdf49f43.chunk.css.map": "/RestaurantReviewsTool/static/css/main.fdf49f43.chunk.css.map",
-    "static/js/2.ce42cd47.chunk.js.LICENSE.txt": "/RestaurantReviewsTool/static/js/2.ce42cd47.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/RestaurantReviewsTool/static/media/Sunflower-Medium.c30ae2b3.woff"
+    "main.css": "/static/css/main.30b9994e.chunk.css",
+    "main.js": "/static/js/main.532431f9.chunk.js",
+    "main.js.map": "/static/js/main.532431f9.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.c3869bdb.js",
+    "runtime-main.js.map": "/static/js/runtime-main.c3869bdb.js.map",
+    "static/css/2.3b6f1bda.chunk.css": "/static/css/2.3b6f1bda.chunk.css",
+    "static/js/2.ce42cd47.chunk.js": "/static/js/2.ce42cd47.chunk.js",
+    "static/js/2.ce42cd47.chunk.js.map": "/static/js/2.ce42cd47.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.39deb8af0bcec4fa64194a364f711625.js": "/precache-manifest.39deb8af0bcec4fa64194a364f711625.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.3b6f1bda.chunk.css.map": "/static/css/2.3b6f1bda.chunk.css.map",
+    "static/css/main.30b9994e.chunk.css.map": "/static/css/main.30b9994e.chunk.css.map",
+    "static/js/2.ce42cd47.chunk.js.LICENSE.txt": "/static/js/2.ce42cd47.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/static/media/Sunflower-Medium.c30ae2b3.woff"
   },
   "entrypoints": [
-    "static/js/runtime-main.b876752f.js",
+    "static/js/runtime-main.c3869bdb.js",
     "static/css/2.3b6f1bda.chunk.css",
     "static/js/2.ce42cd47.chunk.js",
-    "static/css/main.fdf49f43.chunk.css",
-    "static/js/main.930b96d0.chunk.js"
+    "static/css/main.30b9994e.chunk.css",
+    "static/js/main.532431f9.chunk.js"
   ]
 }
