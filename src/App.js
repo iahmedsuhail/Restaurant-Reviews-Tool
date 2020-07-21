@@ -130,7 +130,7 @@ class App extends React.Component {
      
       // Particles.js library for styling the application
       <div className="App">
-        {console.log(process.env.GOOGLE_PLACES_API_KEY)}
+        {console.log("The Google Places API key is " + process.env.GOOGLE_PLACES_API_KEY)}
         <Particles className='particles'
           params={particlesOptions}/> 
         <BrowserRouter basename={process.env.PUBLIC_URL}> {/* using react-router-dom for routing */}
